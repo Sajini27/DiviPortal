@@ -1,0 +1,18 @@
+.imge{
+    margin: 80px auto;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ph img{
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+}
+
+.ph{
+    flex-basis: 31%;
+}

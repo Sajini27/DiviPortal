@@ -1,0 +1,49 @@
+/* Default navbar styles */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Default background color when page loads */
+  .colored-nav {
+    background-color: #333; /* You can change this color to whatever you like */
+    color: white;
+  }
+  
+  /* Sticky effect when the user scrolls */
+  .sticky-nav {
+    background-color: #7c9daf; /* Darker or different shade */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Add shadow on scroll */
+    padding: 5px 20px; /* Optional: Shrink padding when sticky */
+  }
+  
+  .nav img.logo {
+    height: 40px; /* Adjust the size of the logo */
+  }
+  
+  .nav ul {
+    list-style: none;
+    display: flex;
+  }
+  
+  .nav ul li {
+    margin: 0 15px;
+  }
+  
+  .nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .nav ul li a:hover {
+    text-decoration: underline;
+  }
+  

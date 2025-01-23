@@ -1,0 +1,53 @@
+.contact-container {
+    width: 100%;
+    max-width: 1200px;
+    margin:100px auto 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.contact-hotline{
+    color: #000F38;
+    margin-top: 100px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.officer-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.officer-table th, .officer-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.officer-table th {
+    background-color: #7288a3;
+    color: #333;
+}
+
+.officer-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.officer-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.officer-table button {
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.officer-table button:hover {
+    background-color: #0056b3;
+}

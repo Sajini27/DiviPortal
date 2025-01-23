@@ -1,0 +1,63 @@
+/* Container for the top description */
+.page-description {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin: 0 auto 20px; /* Center the container and add spacing below */
+}
+
+
+.page-description h2 {
+    margin: 100px auto;
+    font-size: 28px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.imge {
+    margin: 100px auto;
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 50px;
+    justify-items: center;
+}
+
+.ph {
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.ph img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.ph:hover img {
+    transform: scale(1.1);
+}
+
+.description {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .imge {
+        grid-template-columns: 1fr 1fr;
+    }
+    .imge div:nth-child(3) {
+        grid-column: span 2;
+    }
+}
