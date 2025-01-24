@@ -1,3 +1,11 @@
+
+.custom-img {
+    width: 100%; /* Ensure the image scales to fit its container */
+    max-width: 250px; /* Optional: Limit the maximum width of the image */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Crop the image properly if necessary */
+    border-radius: 10px;
+}
 /* Container for the top description */
 .page-description {
     text-align: center;
@@ -18,46 +26,20 @@
     margin-bottom: 10px;
 }
 
-.imge {
-    margin: 100px auto;
-    width: 90%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 50px;
-    justify-items: center;
+.page-description p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.5;
 }
 
-.ph {
-    width: 100%;
-    text-align: center;
-    overflow: hidden;
-}
-
-.ph img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.ph:hover img {
-    transform: scale(1.1);
-}
-
-.description {
-    margin-top: 10px;
-    font-size: 16px;
-    color: #333;
+h4 {
+    font-size: 20px;
     font-weight: bold;
+    color: #333;
 }
 
-/* Responsive styling */
-@media (max-width: 768px) {
-    .imge {
-        grid-template-columns: 1fr 1fr;
-    }
-    .imge div:nth-child(3) {
-        grid-column: span 2;
-    }
+p {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
 }

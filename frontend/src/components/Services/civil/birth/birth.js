@@ -14,20 +14,52 @@ function Birth() {
     };
 
     return (
-        <div className='imge'>
-            <div className='ph' onClick={() => handleImageClick('/amendment')}>
-                <img src={amendment} alt="Amendment" />
-                <p className='description'>Birth Certificate Amendment Application</p>
-            </div>
-            <div className='ph' onClick={() => handleImageClick('/delayed')}>
-                <img src={delayed} alt="Delayed" />
-                <p className='description'>Delayed Birth Registration</p>
-            </div>
-            <div className='ph' onClick={() => handleImageClick('/copies')}>
-                <img src={Copies} alt="Copies" />
-                <p className='description'>Copies of Birth Certificate</p>
+        <div>
+            {/* Description section */}
+            <div className='page-description'>
+                <h2>Birth Certificate</h2>
+                <p>Manage all your birth certificate needs in one place. Whether you require Copies of Birth Certificates, assistance with Delayed Birth Registration, or submitting a Birth Certificate Amendment Application, we’ve got you covered. Our streamlined process ensures you get the services you need quickly and efficiently.</p>
             </div>
 
+            <div className='container'>           
+                <div className="row align-items-center mb-4">
+                    <div className="col-md-4" onClick={() => handleImageClick('/amendment')}>
+                        <img src={amendment} alt="Amendment" className="img-fluid custom-img" />
+                    </div>
+                    <div className="col-md-8">
+                        <h4 className='description'>Birth Certificate Amendment Application</h4>
+                        <p>
+                            hgyetyd
+                        </p>
+                     </div>
+                </div>
+
+                <div className="row align-items-center mb-4">
+                    <div className="col-md-4" onClick={() => handleImageClick('/delayed')}>
+                        <img src={delayed} alt="Delayed" className="img-fluid custom-img" />
+                    </div>
+                    <div className="col-md-8">
+                        <h4 className='description'>Delayed Birth Registration</h4>
+                        <p>
+                            fuyrf
+                        </p>
+                    </div>
+                </div>
+
+                <div className="row align-items-center mb-4">
+                    <div className="col-md-4" onClick={() => handleImageClick('/copies')}>
+                        <img src={Copies} alt="Copies" className="img-fluid custom-img" />
+                    </div>
+                    <div className="col-md-8">
+                        <h4 className='description'>Copies of Birth Certificate</h4>
+                        <p>
+                            dgvh
+                        </p>
+                    </div>
+                    </div>
+
+            </div>
+            
         </div>
     );
 }

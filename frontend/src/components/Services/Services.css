@@ -1,75 +1,44 @@
-.imge {
-    margin: 100px auto;
-    width: 90%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
-    grid-template-rows: auto auto; /* Define two rows */
-    grid-gap: 50px; /* Space between images */
-    justify-items: center; /* Center images horizontally */
-}
-
-.ph {
-    width: 100%;
-    text-align: center; /* Center the description text */
-    overflow: hidden; /* Ensures the image doesn't overflow when enlarged */
-}
-
-.ph img {
-    width: 100%;
-    height: 300px; /* Set the same height for all images */
-    object-fit: cover; /* Crop the image to cover the box while keeping the aspect ratio */
+.custom-img {
+    width: 100%; /* Ensure the image scales to fit its container */
+    max-width: 250px; /* Optional: Limit the maximum width of the image */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Crop the image properly if necessary */
     border-radius: 10px;
-    transition: transform 0.3s ease-in-out; /* Smooth transition for the hover effect */
 }
-
-.ph:hover img {
-    transform: scale(1.1); /* Increase size by 10% on hover */
-}
-
-.description {
-    margin-top: 10px;
-    font-size: 16px;
-    color: #333;
-    font-weight: bold;
-}
-
-/* Make the 4th and 5th images span across the entire row (2 images in second row) */
-.imge div:nth-child(4),
-.imge div:nth-child(5) {
-    grid-column: span 1; /* Each image takes 1 column in the second row */
-}
-
-/* Responsive design for smaller screens */
-@media (max-width: 768px) {
-    .imge {
-        grid-template-columns: 1fr 1fr; /* 2 columns on smaller screens */
-    }
-    .imge div:nth-child(3) {
-        grid-column: span 2; /* Make the 3rd image take full width on smaller screens */
-    }
-}
-
-.description{
-    margin: 30px auto;
-}
-
-
 
 .services-description {
-    margin: 100px auto;
     text-align: center;
-    margin-bottom: 40px;
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin: 0 auto 20px; /* Center the container and add spacing below */
 }
 
 .services-description h2 {
+    margin: 100px auto;
     font-size: 28px;
     color: #333;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
+
 .services-description p {
     font-size: 18px;
     color: #555;
     line-height: 1.5;
+}
+
+h4 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
 }
