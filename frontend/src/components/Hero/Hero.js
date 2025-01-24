@@ -3,7 +3,7 @@ import './Hero.css';
 import person from '../../assets/person.png';
 import email from '../../assets/email.png';
 import password from '../../assets/password.png';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
 
 function Hero() {
     const [action, setAction] = useState("Sign Up"); // SignUp or Login Mode
@@ -12,40 +12,50 @@ function Hero() {
         nic: '',
         password: '',
         email: '',
-        division: ''
+        division: '',
+        role: 'user', // Default role
     });
+    const [errorMessage, setErrorMessage] = useState(""); // Error message state
 
-    // Handle form input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    // Handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent page refresh on submit
+        e.preventDefault();
         try {
             if (action === "Sign Up") {
-                // API call for signup
                 const response = await axios.post('http://localhost:5000/api/auth/signup', formData);
                 console.log('Signup response:', response.data);
+                setErrorMessage(""); // Clear error message after successful signup
             } else {
-                // API call for login
                 const response = await axios.post('http://localhost:5000/api/auth/login', {
                     email: formData.email,
                     password: formData.password,
                 });
+                
+                // Handle the login response
                 console.log('Login response:', response.data);
+                const { token, user } = response.data;
+                
+                // Save the token in localStorage
+                localStorage.setItem('token', token);
+                
+                // Redirect based on role
+                if (user.role === 'admin') {
+                    window.location.href = '/admin-dashboard'; // Redirect to admin dashboard
+                } else {
+                    window.location.href = '/user-dashboard'; // Redirect to user dashboard
+                }
             }
         } catch (error) {
             console.error(`Error: ${error.message}`);
             if (error.response) {
                 console.error(`Error response: ${error.response.data}`);
-            } else {
-                console.error("An unknown error occurred");
+                setErrorMessage(error.response.data.message || "An error occurred. Please try again."); // Display error message
             }
         }
-        
     };
 
     return (
@@ -55,8 +65,6 @@ function Hero() {
                     <h1>Welcome to DiviPortal</h1>
                     <p>
                         DiviPortal is your one-stop solution for accessing the services of the Divisional Secretariat Office with ease and convenience.
-                        Designed to streamline communication and reduce the hassle of in-person visits, our platform offers a wide range of essential services at your fingertips.
-                        Explore our services and manage your administrative needs effortlessly!
                     </p>
                 </div>
             </div>
@@ -68,7 +76,6 @@ function Hero() {
                 </div>
 
                 <form className='inputs' onSubmit={handleSubmit}>
-                    {/* Form fields for Sign Up */}
                     {action === "Sign Up" && (
                         <>
                             <div className='input'>
@@ -88,22 +95,19 @@ function Hero() {
                                 <input type="email" name="email" placeholder='Email Address' onChange={handleChange} />
                             </div>
                             <div className='input'>
-                                <img src={person} alt='' />
-                                <input type="text" name="division" placeholder='Gramasewa Division' onChange={handleChange} />
+                                <select name="role" onChange={handleChange} value={formData.role}>
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
                             </div>
                             <div className='forgot-password'>
                                 I already have an account <span onClick={() => setAction('Login')}>Click Here!</span>
                             </div>
                             <div className='submit-container'>
-                                {/* Proper button for submitting the Sign Up form */}
-                                <button type="submit" className="submit">
-                                    Sign Up
-                                </button>
+                                <button type="submit" className="submit">Sign Up</button>
                             </div>
                         </>
                     )}
-
-                    {/* Form fields for Login */}
                     {action === "Login" && (
                         <>
                             <div className='input'>
@@ -115,20 +119,20 @@ function Hero() {
                                 <input type="password" name="password" placeholder='Password' onChange={handleChange} />
                             </div>
                             <div className='forgot-password'>
-                               Lost Password? <span>Click Here!</span>
+                                Lost Password? <span>Click Here!</span>
                             </div>
                             <div className='forgot-password'>
                                 I don't have an account <span onClick={() => setAction('Sign Up')}>Click Here!</span>
                             </div>
                             <div className='submit-container'>
-                                {/* Proper button for submitting the Login form */}
-                                <button type="submit" className="submit">
-                                    Login
-                                </button>
+                                <button type="submit" className="submit">Login</button>
                             </div>
                         </>
                     )}
                 </form>
+
+                {/* Display error message if login or signup fails */}
+                {errorMessage && <div className="error-message">{errorMessage}</div>}
             </div>
         </div>
     );
