@@ -1,0 +1,59 @@
+.custom-img {
+    width: 100%; /* Ensure the image scales to fit its container */
+    height: 250px; /* Set a fixed height to ensure uniformity */
+    object-fit: cover; /* Crop the image properly if necessary */
+    border-radius: 10px; /* Optional: Add rounded corners */
+    margin: 0 auto; /* Center the images */
+}
+
+.services-description {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin: 0 auto 20px; /* Center the container and add spacing below */
+}
+
+.services-description h2 {
+    margin: 100px auto;
+    font-size: 28px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.services-description p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.5;
+}
+
+h4.officer-name {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+    color: #333;
+}
+
+p.officer-role {
+    font-size: 14px;
+    text-align: center;
+    color: #777;
+}
+
+/* Bootstrap grid customization */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-md-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

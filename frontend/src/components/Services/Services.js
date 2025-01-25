@@ -6,6 +6,7 @@ import insurance from '../../assets/insurance.jpg';
 import pension from '../../assets/pension.jpg';
 import certificate from '../../assets/certificate.png';
 import land from '../../assets/land.jpg';
+import appoin from '../../assets/appoin.webp';
 
 function Services() {
     const navigate = useNavigate();
@@ -82,6 +83,18 @@ function Services() {
                     </div>
                     <div className="col-md-8">
                         <h4>Land Administration</h4>
+                        <p>
+                            Access services related to land registration and administration. Click to the image find out more details.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="row align-items-center mb-4">
+                    <div className="col-md-4" onClick={() => handleImageClick('/appoinment')}>
+                        <img src={appoin} alt="appoinment" className="img-fluid custom-img" />
+                    </div>
+                    <div className="col-md-8">
+                        <h4>Booking Appoinment</h4>
                         <p>
                             Access services related to land registration and administration. Click to the image find out more details.
                         </p>

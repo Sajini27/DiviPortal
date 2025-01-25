@@ -1,49 +1,134 @@
 /* Default navbar styles */
 .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  /* Default background color when page loads */
-  .colored-nav {
-    background-color: #333; /* You can change this color to whatever you like */
-    color: white;
-  }
-  
-  /* Sticky effect when the user scrolls */
-  .sticky-nav {
-    background-color: #7c9daf; /* Darker or different shade */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Add shadow on scroll */
-    padding: 5px 20px; /* Optional: Shrink padding when sticky */
-  }
-  
-  .nav img.logo {
-    height: 40px; /* Adjust the size of the logo */
-  }
-  
-  .nav ul {
-    list-style: none;
-    display: flex;
-  }
-  
-  .nav ul li {
-    margin: 0 15px;
-  }
-  
-  .nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-  }
-  
-  .nav ul li a:hover {
-    text-decoration: underline;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+}
+
+.colored-nav {
+  background-color: #333;
+  color: white;
+}
+
+.sticky-nav {
+  background-color: #7c9daf;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 5px 20px;
+}
+
+/* Logo styling */
+.logo {
+  height: 40px;
+}
+
+/* Navigation menu styling */
+ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  margin: 0 15px;
+}
+
+ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Profile section styling */
+.profile-section {
+  display: flex;
+  align-items: center;
+}
+
+/* Profile menu container */
+.profile-menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Profile picture */
+.profile-pic {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.profile-pic:hover {
+  opacity: 0.8; /* Adds hover effect on profile picture */
+}
+
+/* Dropdown icon */
+.dropdown-icon {
+  width: 10px;
+  margin-left: 8px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.dropdown-icon:hover {
+  opacity: 0.8; /* Adds hover effect on dropdown icon */
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  display: block;
+  flex-direction: column;
+  gap: 8px;
+  width: 150px;
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.dropdown-menu p {
+  margin: 0;
+  padding: 8px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.dropdown-menu p:hover {
+  background-color: #eaeaea;
+}
+
+/* Create account button */
+.create-account-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.create-account-btn:hover {
+  background-color: #0056b3;
+}
