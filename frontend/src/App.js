@@ -7,7 +7,7 @@ import About from './components/About/About';
 import AboutUs from './components/AboutUs/AboutUs';
 import Feedback from './components/Feedback/Feedback';
 import Services from './components/Services/Services';
-import Login from './components/login/Login';
+import Login from './components/login/Login'; // Only one Login import here
 import Myprofile from './components/myprofile/Myprofile';
 import Myappoinment from './components/myappoinment/Myappoinment';
 
@@ -18,7 +18,6 @@ import Pension from './components/Services/pension/pension';
 import Permits from './components/Services/permits/permits';
 import AppointmentBooking from './components/Services/appoinment/AppointmentBooking';
 import Officer from './components/Services/appoinment/Officer';
-
 
 import Birth from './components/Services/civil/birth/birth';
 import Death from './components/Services/civil/death/death';
@@ -43,7 +42,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Navbar /> {/* Navbar stays at the top across all routes */}
+        <Navbar />
         <div className="mx-4 sm:mx-[10%]">
           <Routes>
             <Route path='/' element={<Hero />} />
