@@ -15,7 +15,7 @@ function OfficerDetails() {
         const today = new Date();
         const slots = [];
 
-        for (let i = 0; i < 5; i++) { // Adjusted to only include weekdays
+        for (let i = 0; i < 5; i++) { // Generate slots for 5 weekdays
             const currentDate = new Date(today);
             currentDate.setDate(today.getDate() + i);
 
@@ -32,7 +32,7 @@ function OfficerDetails() {
 
             slots.push({
                 date: new Date(today.getFullYear(), today.getMonth(), today.getDate() + i),
-                day: daysOfWeek[(today.getDay() + i - 1) % 5],
+                day: daysOfWeek[(today.getDay() + i) % daysOfWeek.length], // Fixed logic
                 times: timeSlots,
             });
         }

@@ -1,30 +1,55 @@
-import React, { useState } from "react";
-import "./Login.css"; // Import external CSS
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import './Login.css';
 
 const Login = () => {
     const [state, setState] = useState('Sign Up');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
+    const [message, setMessage] = useState('');  // For success or error messages
+
+    const navigate = useNavigate();
 
     const onSubmitHandler = async (event) => {
         event.preventDefault();
-        console.log({ state, email, password, name }); // Placeholder for form submission logic
-    };
 
-    const isSignUp = state === 'Sign Up';
+        const userDetails = { email, password, ...(state === 'Sign Up' && { name }) };
+
+        try {
+            const url = state === 'Sign Up'
+                ? 'http://localhost:5000/api/auth/signup'
+                : 'http://localhost:5000/api/auth/login';
+
+            const response = await axios.post(url, userDetails);
+            console.log(`${state === 'Sign Up' ? 'User created' : 'User logged in'} successfully:`, response.data);
+
+            // Store JWT token in localStorage
+            localStorage.setItem('authToken', response.data.token);
+
+            // Show success message
+            setMessage(state === 'Sign Up' ? 'Account created successfully!' : 'Logged in successfully!');
+
+            // Redirect user to the dashboard or home page after login
+            if (state === 'Login') navigate('/dashboard');
+        } catch (error) {
+            console.error('Error:', error.response ? error.response.data : error);
+            setMessage(error.response?.data?.message || 'An error occurred.');
+        }
+    };
 
     return (
         <div className="login-container">
-            <form className="login-box">
+            <form className="login-box" onSubmit={onSubmitHandler}>
                 <h2 className="login-title">
-                    {isSignUp ? 'Create Account' : 'Login'}
+                    {state === 'Sign Up' ? 'Create Account' : 'Login'}
                 </h2>
                 <p className="login-subtitle">
-                    {isSignUp ? "Sign up to start your journey" : "Log in to your account"}
+                    {state === 'Sign Up' ? "Sign up to start your journey" : "Log in to your account"}
                 </p>
 
-                {isSignUp && (
+                {state === 'Sign Up' && (
                     <div className="form-group">
                         <label>Name with Initial</label>
                         <input
@@ -62,20 +87,23 @@ const Login = () => {
                     />
                 </div>
 
-                <button
-                    type="submit"
-                    onClick={onSubmitHandler}
-                    className="login-button">
-                    {isSignUp ? 'Create Account' : 'Login'}
+                <button type="submit" className="login-button">
+                    {state === 'Sign Up' ? 'Create Account' : 'Login'}
                 </button>
+
+                {/* Display success or error message */}
+                {message && <div className={`message ${message.includes('successfully') ? 'success-message' : 'error-message'}`}>{message}</div>}
 
                 <div className="form-footer">
                     <p>
-                        {isSignUp ? "Already have an account?" : "Don't have an account?"} {" "}
+                        {state === 'Sign Up' ? "Already have an account?" : "Don't have an account?"}{" "}
                         <span
-                            onClick={() => setState(isSignUp ? 'Login' : 'Sign Up')}
+                            onClick={() => {
+                                setState(state === 'Sign Up' ? 'Login' : 'Sign Up');
+                                setMessage(''); // Clear message when switching states
+                            }}
                             className="toggle-link">
-                            {isSignUp ? 'Login here' : 'Sign up here'}
+                            {state === 'Sign Up' ? 'Login here' : 'Sign up here'}
                         </span>
                     </p>
                 </div>
