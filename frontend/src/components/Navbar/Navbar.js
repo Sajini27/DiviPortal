@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
-import R from '../../assets/R.png';
 import profile_pic from '../../assets/profile_pic.png'; // Import profile picture
 import dropdown_icon from '../../assets/dropdown_icon.svg'; // Import dropdown icon
 
@@ -46,7 +45,7 @@ function Navbar() {
 
   return (
     <nav className={`nav colored-nav ${sticky ? 'sticky-nav' : ''}`}>
-      <img src={R} alt="logo" className="logo" />
+      <div className="logo-text">DiviPortal</div>
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/aboutUs">About Us</Link></li>

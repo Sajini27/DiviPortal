@@ -8,6 +8,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
+    const [role, setRole] = useState('user');  // Role selection moved to login
     const [message, setMessage] = useState('');  // For success or error messages
 
     const navigate = useNavigate();
@@ -15,7 +16,13 @@ const Login = () => {
     const onSubmitHandler = async (event) => {
         event.preventDefault();
 
-        const userDetails = { email, password, ...(state === 'Sign Up' && { name }) };
+        // User details include 'name' only for signup, and 'role' only for login
+        const userDetails = {
+            email,
+            password,
+            ...(state === 'Sign Up' && { name }),  // Include name for sign up
+            ...(state === 'Login' && { role })     // Include role for login
+        };
 
         try {
             const url = state === 'Sign Up'
@@ -42,6 +49,23 @@ const Login = () => {
     return (
         <div className="login-container">
             <form className="login-box" onSubmit={onSubmitHandler}>
+                {/* Role selection for Login */}
+                {state === 'Login' && (
+                    <div className="form-group">
+                        <label>Role</label>
+                        <select
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}
+                            className="form-input"
+                        >
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                            <option value="staff">Staff</option>
+                            <option value="officer">Officer</option>
+                        </select>
+                    </div>
+                )}
+
                 <h2 className="login-title">
                     {state === 'Sign Up' ? 'Create Account' : 'Login'}
                 </h2>
@@ -92,7 +116,13 @@ const Login = () => {
                 </button>
 
                 {/* Display success or error message */}
-                {message && <div className={`message ${message.includes('successfully') ? 'success-message' : 'error-message'}`}>{message}</div>}
+                {message && (
+                    <div
+                        className={`message ${message.includes('successfully') ? 'success-message' : 'error-message'}`}
+                    >
+                        {message}
+                    </div>
+                )}
 
                 <div className="form-footer">
                     <p>
