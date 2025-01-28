@@ -6,7 +6,8 @@ const router = express.Router();
 
 // Signup Route
 router.post('/signup', async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, name } = req.body;
+
     try {
         // Check if the user already exists
         const existingUser = await User.findOne({ email });
@@ -14,20 +15,25 @@ router.post('/signup', async (req, res) => {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-        // Create new user with default role 'user'
+        // Hash the password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Create new user with hashed password
         const newUser = new User({
+            name,
             email,
-            password, // You should hash the password before saving
+            password: hashedPassword, // Save the hashed password
             role: 'user' // Default role for users
         });
 
         await newUser.save();
         res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
+        console.error(error); // Log the error for debugging
         res.status(500).json({ message: 'Error creating user', error });
     }
 });
-
 
 
 // Login Route
