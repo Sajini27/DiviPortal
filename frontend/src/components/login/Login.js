@@ -4,25 +4,32 @@ import axios from 'axios';
 import './Login.css';
 
 const Login = () => {
-    const [state, setState] = useState('Sign Up');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const [role, setRole] = useState('user');  // Role selection moved to login
-    const [message, setMessage] = useState('');  // For success or error messages
-
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        name: '', // Only used for Sign Up
+    });
+    const [state, setState] = useState('Sign Up'); // 'Sign Up' or 'Login'
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
-    const onSubmitHandler = async (event) => {
+    // Handle form input changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
+    // Handle form submission (Login or Sign Up)
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // User details include 'name' only for signup, and 'role' only for login
-        const userDetails = {
-            email,
-            password,
-            ...(state === 'Sign Up' && { name }),  // Include name for sign up
-            ...(state === 'Login' && { role })     // Include role for login
-        };
+        const { email, password, name } = formData;
+
+        // Prepare user details based on state (Sign Up / Login)
+        const userDetails = state === 'Sign Up' ? { email, password, name } : { email, password };
 
         try {
             const url = state === 'Sign Up'
@@ -30,16 +37,26 @@ const Login = () => {
                 : 'http://localhost:5000/api/auth/login';
 
             const response = await axios.post(url, userDetails);
-            console.log(`${state === 'Sign Up' ? 'User created' : 'User logged in'} successfully:`, response.data);
+            const { token, role, userName } = response.data;
 
-            // Store JWT token in localStorage
-            localStorage.setItem('authToken', response.data.token);
+            // Store token and user details in local storage
+            localStorage.setItem('authToken', token);
+            localStorage.setItem('userName', userName);
+            localStorage.setItem('role', role);
 
-            // Show success message
+            // Set success message
             setMessage(state === 'Sign Up' ? 'Account created successfully!' : 'Logged in successfully!');
 
-            // Redirect user to the dashboard or home page after login
-            if (state === 'Login') navigate('/dashboard');
+            // Navigate based on state (Sign Up or Login)
+            if (state === 'Sign Up') {
+                navigate('/login'); // Redirect to login page after successful sign up
+            } else if (state === 'Login') {
+                if (role === 'user') {
+                    navigate('/'); // Redirect to user dashboard
+                } else {
+                    navigate(`/${role}-dashboard`); // Redirect to role-based dashboard
+                }
+            }
         } catch (error) {
             console.error('Error:', error.response ? error.response.data : error);
             setMessage(error.response?.data?.message || 'An error occurred.');
@@ -48,24 +65,7 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <form className="login-box" onSubmit={onSubmitHandler}>
-                {/* Role selection for Login */}
-                {state === 'Login' && (
-                    <div className="form-group">
-                        <label>Role</label>
-                        <select
-                            value={role}
-                            onChange={(e) => setRole(e.target.value)}
-                            className="form-input"
-                        >
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
-                            <option value="staff">Staff</option>
-                            <option value="officer">Officer</option>
-                        </select>
-                    </div>
-                )}
-
+            <form className="login-box" onSubmit={handleSubmit}>
                 <h2 className="login-title">
                     {state === 'Sign Up' ? 'Create Account' : 'Login'}
                 </h2>
@@ -78,10 +78,11 @@ const Login = () => {
                         <label>Name with Initial</label>
                         <input
                             type="text"
+                            name="name"
                             placeholder="Enter your name"
                             className="form-input"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={formData.name}
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -91,10 +92,11 @@ const Login = () => {
                     <label>Email</label>
                     <input
                         type="email"
+                        name="email"
                         placeholder="Enter your email"
                         className="form-input"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={formData.email}
+                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -103,10 +105,11 @@ const Login = () => {
                     <label>Password</label>
                     <input
                         type="password"
+                        name="password"
                         placeholder="Enter your password"
                         className="form-input"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={formData.password}
+                        onChange={handleChange}
                         required
                     />
                 </div>

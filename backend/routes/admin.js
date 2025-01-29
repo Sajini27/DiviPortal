@@ -1,5 +1,5 @@
 const express = require('express');
-const { authenticate, authorize } = require('../middleware/auth');
+const { authenticate, authorize } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 router.get('/admin-dashboard', authenticate, authorize(['Admin']), (req, res) => {

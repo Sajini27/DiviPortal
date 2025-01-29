@@ -4,7 +4,7 @@ import b3 from '../../assets/b3.JPG';
 import b2 from '../../assets/b2.jpg';
 import b4 from '../../assets/b4.jpg';
 
-function imge() {
+function Imge() {
 
     return(
       <div className='imge  '>
@@ -21,4 +21,4 @@ function imge() {
     );
 }
 
-export default imge;
+export default Imge;
