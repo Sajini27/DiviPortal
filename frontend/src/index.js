@@ -6,7 +6,7 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { AppProvider } from './context/appContext';
 
-const root = ReactDOM.createRoot(document.getElementById('root')); // Create root
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
@@ -14,7 +14,6 @@ root.render(
       <AppProvider>
         <App />
       </AppProvider>
-
     </BrowserRouter>
   </React.StrictMode>
 );

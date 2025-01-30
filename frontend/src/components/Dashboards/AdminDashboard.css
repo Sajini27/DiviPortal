@@ -1,0 +1,61 @@
+/* Admin Dashboard CSS */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar-title {
+    font-size: 24px;
+    text-align: center;
+}
+
+.sidebar-links {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-links li {
+    padding: 15px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 18px;
+}
+
+.sidebar-links li:hover {
+    background-color: #444;
+}
+
+.dashboard-content {
+    flex-grow: 1;
+    padding: 30px;
+    background-color: #f4f4f4;
+}
+
+.dashboard-content h1 {
+    font-size: 32px;
+    color: #333;
+}
+
+.logout-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.logout-button:hover {
+    background-color: #c9302c;
+}

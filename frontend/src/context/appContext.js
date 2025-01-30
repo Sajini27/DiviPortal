@@ -4,38 +4,46 @@ import React, { createContext, useState, useEffect } from 'react';
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-    const [token, setToken] = useState(false);
+    const [token, setToken] = useState(null);
     const [userName, setUserName] = useState('');
+    const [role, setRole] = useState(''); // Store user role
 
     useEffect(() => {
-        // Check if user is logged in based on token and username stored in localStorage
         const storedToken = localStorage.getItem('authToken');
         const storedUserName = localStorage.getItem('userName');
+        const storedRole = localStorage.getItem('role'); 
 
         if (storedToken) {
-            setToken(true);
+            setToken(storedToken);
             if (storedUserName) {
                 setUserName(storedUserName);
+            }
+            if (storedRole) {
+                setRole(storedRole); // Set the role from localStorage
             }
         }
     }, []);
 
-    const login = (username) => {
-        localStorage.setItem('authToken', 'true');
+    const login = (token, username, userRole) => {
+        localStorage.setItem('authToken', token);
         localStorage.setItem('userName', username);
-        setToken(true);
+        localStorage.setItem('role', userRole); 
+        setToken(token);
         setUserName(username);
+        setRole(userRole); // Set role
     };
 
     const logout = () => {
         localStorage.removeItem('authToken');
         localStorage.removeItem('userName');
-        setToken(false);
+        localStorage.removeItem('role');
+        setToken(null);
         setUserName('');
+        setRole(''); // Reset role
     };
 
     return (
-        <AppContext.Provider value={{ token, userName, login, logout }}>
+        <AppContext.Provider value={{ token, userName, role, login, logout }}>
             {children}
         </AppContext.Provider>
     );

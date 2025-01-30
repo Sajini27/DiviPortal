@@ -9,10 +9,10 @@ const OfficerDashboard = () => {
     // Load officer data from localStorage (this would normally come from a backend)
     useEffect(() => {
         const role = localStorage.getItem('role');
-        const name = localStorage.getItem('name'); // Assuming name is stored on login
+        const name = localStorage.getItem('name');
 
         if (role !== 'officer') {
-            navigate('/'); // Redirect if the user is not an officer
+            navigate('/'); 
         }
 
         setOfficerData({ name, role });

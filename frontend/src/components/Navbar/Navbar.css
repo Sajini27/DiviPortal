@@ -3,18 +3,19 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: sticky;
+  background: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
   top: 0;
+  left: 0;
   z-index: 1000;
+  transition: all 0.3s ease-in-out;
 }
 
 .sticky-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.95);
+  background: #f8f9fa;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .logo-text {
@@ -23,82 +24,117 @@
   color: #007bff;
 }
 
-.nav ul {
-  display: flex;
+ul {
   list-style: none;
-  gap: 2rem;
+  display: flex;
+  gap: 1.5rem;
 }
 
-.nav ul li a {
+ul li {
+  display: inline;
+}
+
+ul li a {
   text-decoration: none;
   color: #333;
   font-weight: 500;
+  transition: color 0.2s ease-in-out;
 }
 
-.nav ul li a:hover {
+ul li a:hover {
   color: #007bff;
 }
 
+/* Profile Dropdown */
 .profile-menu-container {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
+  position: relative;
+  padding: 0.5rem;
+  border-radius: 50px;
+  background-color: #f0f0f0;
+  transition: background 0.3s ease-in-out;
 }
 
-.profile-letter {
+.profile-menu-container:hover {
+  background-color: #e0e0e0;
+}
+
+.nav-profile-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 40px;
   height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #007bff;
-  color: #fff;
-  border-radius: 50%;
+  font-size: 1.2rem;
   font-weight: bold;
+  color: white;
+  background-color: #007bff;
+  border-radius: 50%;
 }
 
 .dropdown-icon {
   width: 20px;
   height: 20px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .dropdown-menu {
   position: absolute;
-  top: 60px;
-  right: 2rem;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  top: 50px;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
   z-index: 1000;
-}
-
-.dropdown-content {
   padding: 1rem;
+  width: 150px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .dropdown-content p {
   cursor: pointer;
+  padding: 0.5rem;
   color: #333;
+  margin: 0;
+  transition: background 0.2s ease-in-out;
 }
 
 .dropdown-content p:hover {
+  background-color: #f5f5f5;
   color: #007bff;
 }
 
 .create-account-button {
-  background-color: #007bff;
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    outline: none;
 }
 
 .create-account-button:hover {
-  background-color: #0056b3;
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.create-account-button:active {
+    background-color: #004494;
+    transform: scale(0.98);
 }

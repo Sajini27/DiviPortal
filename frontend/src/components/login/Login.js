@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
+import { AppContext } from '../../context/appContext';
 
 const Login = () => {
+    const { login } = useContext(AppContext);
     const [formData, setFormData] = useState({
         email: '',
         password: '',
         name: '', // Only used for Sign Up
     });
-    const [state, setState] = useState('Sign Up'); // 'Sign Up' or 'Login'
+    const [state, setState] = useState('Login'); // 'Sign Up' or 'Login'
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
@@ -37,24 +39,36 @@ const Login = () => {
                 : 'http://localhost:5000/api/auth/login';
 
             const response = await axios.post(url, userDetails);
-            const { token, role, userName } = response.data;
+            const { token, role, name } = response.data;
+
+            console.log('User Name:', name);
+            console.log('User Role:', role);
 
             // Store token and user details in local storage
             localStorage.setItem('authToken', token);
-            localStorage.setItem('userName', userName);
+            localStorage.setItem('userName', name);
             localStorage.setItem('role', role);
+
+            // Update AppContext state (Fixed missing role)
+            login(token, name, role);
 
             // Set success message
             setMessage(state === 'Sign Up' ? 'Account created successfully!' : 'Logged in successfully!');
 
-            // Navigate based on state (Sign Up or Login)
+            // Navigate based on user role
             if (state === 'Sign Up') {
                 navigate('/login'); // Redirect to login page after successful sign up
-            } else if (state === 'Login') {
+            } else {
                 if (role === 'user') {
-                    navigate('/'); // Redirect to user dashboard
+                    navigate('/');
+                } else if (role === 'admin') {
+                    navigate('/admin-dashboard');
+                } else if (role === 'officer') {
+                    navigate('/officer-dashboard');
+                } else if (role === 'staff') {
+                    navigate('/staff-dashboard');
                 } else {
-                    navigate(`/${role}-dashboard`); // Redirect to role-based dashboard
+                    navigate('/'); // Fallback to home if no role is recognized
                 }
             }
         } catch (error) {

@@ -1,11 +1,5 @@
+// backend/middleware/authMiddleware.js
 const jwt = require('jsonwebtoken');
-const express = require('express');
-const { getAdminData } = require('../controllers/adminController');
-const authMiddleware = require('../middleware/authMiddleware');
-const router = express.Router();
-
-router.get('/admin', authMiddleware, getAdminData);
-module.exports = router;
 
 const authMiddleware = (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -23,4 +17,4 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-module.exports = authMiddleware;
+module.exports = authMiddleware; // Export middleware

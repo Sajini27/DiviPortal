@@ -33,12 +33,13 @@ import Window from './components/Services/pension/window/window';
 import Orphans from './components/Services/pension/orphans/orphans';
 import ContactUs from './components/ContactUs/ContactUs';
 import OfficerDashboard from './components/Dashboards/OfficerDashboard';
+import AdminDashboard from './components/Dashboards/AdminDashboard';
 
 function App() {
   const location = useLocation(); // Now this works correctly
 
   // Define routes where Navbar and Footer should not be displayed
-  const hideNavbarFooterRoutes = ['/officer-dashboard'];
+  const hideNavbarFooterRoutes = ['/officer-dashboard', '/admin-dashboard'];
 
   // Check if the current route is in the hideNavbarFooterRoutes array
   const shouldHideNavbarFooter = hideNavbarFooterRoutes.includes(location.pathname);
@@ -86,6 +87,7 @@ function App() {
           <Route path="/pension_for_windows" element={<Window />} />
           <Route path="/pension_for_orphans" element={<Orphans />} />
           <Route path="/officer-dashboard" element={<OfficerDashboard />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
         </Routes>
       </div>
 

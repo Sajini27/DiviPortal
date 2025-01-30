@@ -1,30 +1,48 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Navbar.css';
 import { AppContext } from '../../context/appContext';
 import dropdown_icon from '../../assets/dropdown_icon.svg';
+import './Navbar.css';
 
 function Navbar() {
-    const { token, userName, logout } = useContext(AppContext); // Access token and userName from context
+    const { token, userName, logout } = useContext(AppContext);
     const [sticky, setSticky] = useState(false);
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
 
+    // Handle scroll to make navbar sticky
     const handleScroll = () => {
-        setSticky(window.scrollY > 50); // Trigger sticky when scrolled 50px down
+        setSticky(window.scrollY > 50);
     };
 
+    // Toggle dropdown visibility
     const handleDropdownClick = (e) => {
-        e.stopPropagation(); // Prevent event from propagating to document
-        setDropdownVisible((prev) => !prev); // Toggle dropdown visibility
+        e.stopPropagation(); // Prevent event from closing immediately
+        setDropdownVisible((prev) => !prev);
     };
 
+    // Handle logout
     const handleLogout = () => {
-        logout();  // Call the logout function from context
-        navigate('/login'); // Redirect to login page
+        logout();
+        navigate('/');
     };
 
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+                setDropdownVisible(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    // Add scroll event listener
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => {
@@ -32,7 +50,8 @@ function Navbar() {
         };
     }, []);
 
-    const firstLetter = userName ? userName[0].toUpperCase() : ''; // Get the first letter of user's name
+    // Get the first letter of the user's name
+    const firstLetter = userName ? userName[0].toUpperCase() : '';
 
     return (
         <nav className={`nav ${sticky ? 'sticky-nav' : ''}`}>
@@ -48,24 +67,24 @@ function Navbar() {
             <div className="flex items-center">
                 {token ? (
                     <div className="profile-menu-container" onClick={handleDropdownClick}>
-                        <div className="profile-letter">{firstLetter}</div> {/* Show first letter */}
+                        <div className="nav-profile-letter">{firstLetter}</div>
                         <img className="dropdown-icon" src={dropdown_icon} alt="Dropdown Icon" />
                         {dropdownVisible && (
-                            <div ref={dropdownRef} className="dropdown-menu">
+                            <div ref={dropdownRef} className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
                                 <div className="dropdown-content">
                                     <p onClick={() => navigate('/profile')}>My Profile</p>
                                     <p onClick={() => navigate('/appointments')}>Appointments</p>
-                                    <p onClick={handleLogout}>Logout</p> {/* Logout handler */}
+                                    <p onClick={handleLogout}>Logout</p>
                                 </div>
                             </div>
                         )}
                     </div>
                 ) : (
-                    <button
+                    <button 
                         onClick={() => navigate('/login')}
                         className="create-account-button"
                     >
-                        Create Account
+                        Login
                     </button>
                 )}
             </div>

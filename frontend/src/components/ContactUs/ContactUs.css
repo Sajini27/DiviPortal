@@ -1,18 +1,32 @@
-.contact-container {
-    width: 100%;
-    max-width: 1200px;
-    margin:100px auto 50px auto;
+.contact-us-container {
+    margin-top: 120px;
     padding: 20px;
-    background-color: #f9f9f9;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    text-align: center;
 }
 
-.contact-hotline{
-    color: #000F38;
-    margin-top: 100px;
-    font-weight: 600;
-    text-align: center;
+.contact-us-nav {
+    margin-bottom: 15px;
+}
+
+.contact-us-link {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+}
+
+.contact-us-link:hover {
+    text-decoration: underline;
+}
+
+.hotline-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.contact-container {
+    width: 80%;
+    margin: 0 auto;
 }
 
 .officer-table {
@@ -21,33 +35,36 @@
     margin-top: 20px;
 }
 
-.officer-table th, .officer-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+.officer-table th,
+.officer-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
 }
 
 .officer-table th {
-    background-color: #7288a3;
-    color: #333;
+    background-color: #f4f4f4;
 }
 
-.officer-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+.in-seat-yes {
+    color: green;
+    font-weight: bold;
 }
 
-.officer-table tr:hover {
-    background-color: #f1f1f1;
+.in-seat-no {
+    color: red;
+    font-weight: bold;
 }
 
-.officer-table button {
-    padding: 6px 12px;
-    background-color: #007bff;
-    color: white;
+.toggle-button {
+    padding: 8px 12px;
     border: none;
+    background-color: #007BFF;
+    color: white;
     cursor: pointer;
+    border-radius: 5px;
 }
 
-.officer-table button:hover {
+.toggle-button:hover {
     background-color: #0056b3;
 }
