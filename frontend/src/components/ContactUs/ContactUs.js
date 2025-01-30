@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom'; // Import Link for navigation
 import { AppContext } from '../../context/appContext';
 import './ContactUs.css';
 
@@ -31,11 +30,6 @@ function ContactUs() {
 
     return (
         <div className="contact-us-container">
-            {/* Navigation Link to Contact Us Page */}
-            <div className="contact-us-nav">
-                <Link to="/contact-us" className="contact-us-link">🔗 Go to Contact Us Page</Link>
-            </div>
-
             <h2 className="hotline-title">📞 Hotline: 045 22 62238</h2>
             
             <div className="contact-container">

@@ -1,37 +1,51 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './pension.css';
-import orphans from '../../../assets/orphans.jpg';
-import window from '../../../assets/window.jpg';
 
 function Pension() {
     const navigate = useNavigate();
 
-    const handleImageClick = (path) => {
+    // Function to handle service click
+    const handleServiceClick = (path) => {
         navigate(path);
     };
 
+    // List of services
+    const services = [
+        {
+            title: 'Pension for Widows',
+            description: 'Financial assistance for widows to support their livelihoods after the loss of a spouse. This program ensures access to essential resources and stability.',
+            path: '/pension_for_windows',
+        },
+        {
+            title: 'Pension for Orphans',
+            description: 'Financial support for children who have lost their parents, ensuring access to education, healthcare, and basic necessities.',
+            path: '/pension_for_orphans',
+        },
+    ];
+
     return (
-        <div>
+        <div className="pension-container">
             {/* Description section */}
-            <div className='page-description'>
-                <h2>Payment of pensions</h2>
-                <p><b>Pension for Windows and Orphans</b> is a financial support system designed to provide assistance to the families of deceased individuals, primarily focusing on widows and orphans. This pension scheme aims to ensure that surviving family members have a steady income to maintain their livelihoods after losing their primary breadwinner. The initiative often includes regular monetary payments, healthcare benefits, and educational support for children, thereby helping to alleviate the economic burden and promote stability in their lives. 
-                    This type of pension system plays a crucial role in social welfare, providing security and support during vulnerable times.</p>
+            <div className="page-description">
+                <h2>Payment of Pensions</h2>
+                <p>
+                    Our pension programs provide financial support to widows and orphans, ensuring they have the resources needed to maintain their livelihoods. These initiatives offer regular payments, healthcare benefits, and educational support, helping families rebuild their lives after the loss of a loved one.
+                </p>
             </div>
-            
-            
+
             {/* Services grid */}
-            <div className='imge'>
-                <div className='ph' onClick={() => handleImageClick('/pension_for_windows')}>
-                    <img src={window} alt="window" />
-                    <p className='description'>Pension for Windows</p>
-                </div>
-                <div className='ph' onClick={() => handleImageClick('/pension_for_orphans')}>
-                    <img src={orphans} alt="orphans" />
-                    <p className='description'>Pension for Orphans</p>
-                </div>
-                
+            <div className="services-grid">
+                {services.map((service, index) => (
+                    <div
+                        key={index}
+                        className="service-card"
+                        onClick={() => handleServiceClick(service.path)}
+                    >
+                        <h3>{service.title}</h3>
+                        <p>{service.description}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );

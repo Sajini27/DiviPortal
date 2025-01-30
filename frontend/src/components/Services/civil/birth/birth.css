@@ -1,0 +1,65 @@
+/* General styles */
+.birth-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Description section */
+.page-description {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-description h2 {
+    font-size: 36px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.page-description p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Services grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* One column */
+    gap: 20px; /* Space between rows */
+    padding: 20px;
+}
+
+/* Service card */
+.service-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.service-card h3 {
+    font-size: 24px;
+    color: #007BFF;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+}

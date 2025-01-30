@@ -4,20 +4,6 @@
     text-align: center;
 }
 
-.contact-us-nav {
-    margin-bottom: 15px;
-}
-
-.contact-us-link {
-    text-decoration: none;
-    color: #007BFF;
-    font-weight: bold;
-}
-
-.contact-us-link:hover {
-    text-decoration: underline;
-}
-
 .hotline-title {
     font-size: 20px;
     font-weight: bold;

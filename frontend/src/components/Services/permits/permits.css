@@ -1,63 +1,65 @@
-/* Container for the top description */
+/* General styles */
+.permits-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 100px auto 0; /* Add margin at the top */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Description section */
 .page-description {
     text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-description h2 {
+    font-size: 36px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.page-description p {
     font-size: 18px;
     color: #555;
     line-height: 1.6;
-    margin-bottom: 20px;
     max-width: 800px;
-    margin: 0 auto 20px; /* Center the container and add spacing below */
+    margin: 0 auto;
 }
 
+/* Services grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* One column */
+    gap: 20px; /* Space between rows */
+    padding: 20px;
+}
 
-.page-description h2 {
-    margin: 100px auto;
-    font-size: 28px;
-    color: #333;
+/* Service card */
+.service-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.service-card h3 {
+    font-size: 24px;
+    color: #007BFF;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.imge {
-    margin: 100px auto;
-    width: 90%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 50px;
-    justify-items: center;
-}
-
-.ph {
-    width: 100%;
-    text-align: center;
-    overflow: hidden;
-}
-
-.ph img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.ph:hover img {
-    transform: scale(1.1);
-}
-
-.description {
-    margin-top: 10px;
+.service-card p {
     font-size: 16px;
-    color: #333;
-    font-weight: bold;
-}
-
-/* Responsive styling */
-@media (max-width: 768px) {
-    .imge {
-        grid-template-columns: 1fr 1fr;
-    }
-    .imge div:nth-child(3) {
-        grid-column: span 2;
-    }
+    color: #555;
+    line-height: 1.5;
 }
