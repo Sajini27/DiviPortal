@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
   },
   gsd: {
     type: String
+  },
+  officerDetails: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Officer' // Linking officer details
   }
 });
 

@@ -8,9 +8,9 @@ const AdminDashboard = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (role !== 'admin') {
-            navigate('/');  // Redirect to home if not admin
-        }
+        // if (role !== 'admin') {
+        //     navigate('/');  // Redirect to home if not admin
+        // }
     }, [role, navigate]);
 
     const handleNavigateToContactUs = () => {

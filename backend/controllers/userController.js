@@ -41,4 +41,14 @@ const updateUserProfile = async (req, res) => {
     }
 };
 
-module.exports = { getUserProfile, updateUserProfile };
+const getUsers = async (req, res) => {
+  try {
+      const users = await User.find({}, '_id name email'); // Fetch only necessary fields
+      res.json(users);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+};
+
+
+module.exports = { getUserProfile, updateUserProfile, getUsers  };
