@@ -10,7 +10,12 @@ const {
   deleteStaff,
   getOfficeById,
   getStaffById,
-  getBookingsForOfficer
+  getBookingsForOfficer,
+  createUser,
+  getAllUsers,
+  updateUser,
+  deleteUser,
+  getUserById
 } = require('../controllers/adminController');
 const router = express.Router();
 
@@ -29,5 +34,12 @@ router.put('/staff/:id', updateStaff);
 router.delete('/staff/:id', deleteStaff);
 
 router.get('/bookings/:officerId', getBookingsForOfficer);
+
+// CRUD for User
+router.post('/user', createUser);
+router.get('/user', getAllUsers);
+router.get('/user/:id', getUserById);
+router.put('/user/:id', updateUser);
+router.delete('/user/:id', deleteUser);
 
 module.exports = router;

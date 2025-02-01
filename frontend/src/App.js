@@ -1,5 +1,6 @@
+// App.js
 import React from 'react';
-import { Routes, Route } from 'react-router-dom'; // Removed useLocation since it's no longer needed
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Hero from './components/Hero/Hero';
@@ -36,6 +37,7 @@ import AdminDashboard from './components/Dashboards/AdminDashboard';
 import StaffDashboard from './components/Dashboards/StaffDashboard';
 import AddOfficer from './components/Dashboards/adminFunctions/addOfficers';
 import AddStaff from './components/Dashboards/adminFunctions/addStaff';
+import AddUser from './components/Dashboards/adminFunctions/addUser'; // Note: filename is case sensitive
 import Bookings from './components/Services/appoinment/booking';
 
 function App() {
@@ -89,6 +91,10 @@ function App() {
           <Route path="/admin/officers/edit/:id" element={<AddOfficer mode="edit" />} />
           <Route path="/admin/staff" element={<AddStaff mode="add" />} />
           <Route path="/admin/staff/edit/:id" element={<AddStaff mode="edit" />} />
+
+          {/* Note the change from "/admin/user" to "/admin/users" */}
+          <Route path="/admin/user" element={<AddUser mode="add" />} />
+          <Route path="/admin/user/edit/:id" element={<AddUser mode="edit" />} />
         </Routes>
       </div>
 

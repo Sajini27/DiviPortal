@@ -13,6 +13,7 @@ const Sidebar = () => {
                 <li onClick={() => navigate('/admin-dashboard')}>DashBoard</li>
                 <li onClick={() => navigate('/admin/officers')}>Add Offices</li>
                 <li onClick={() => navigate('/admin/staff')}>Add Staff</li>
+                <li onClick={() => navigate('/admin/user')}>Add User</li>
             </ul>
         </div>
     );
