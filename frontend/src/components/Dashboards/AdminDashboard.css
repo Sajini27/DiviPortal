@@ -1,61 +1,82 @@
-/* Admin Dashboard CSS */
+/* AdminDashboard.css */
+
+/* General Styles */
 .dashboard-container {
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
+    background-color: #f4f7f6;
+    font-family: 'Arial', sans-serif;
 }
 
-.sidebar {
-    width: 250px;
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.sidebar-title {
-    font-size: 24px;
-    text-align: center;
-}
-
-.sidebar-links {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar-links li {
-    padding: 15px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 18px;
-}
-
-.sidebar-links li:hover {
-    background-color: #444;
-}
-
+/* Dashboard Content Styles */
 .dashboard-content {
-    flex-grow: 1;
-    padding: 30px;
-    background-color: #f4f4f4;
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-content h1 {
-    font-size: 32px;
-    color: #333;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #2c3e50;
 }
 
-.logout-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #d9534f;
-    color: white;
+.dashboard-content h2 {
+    font-size: 22px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #34495e;
+}
+
+/* Table Styles */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.data-table th {
+    background-color: #34495e;
+    color: #fff;
+}
+
+.data-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.data-table button {
+    padding: 5px 10px;
+    margin-right: 5px;
     border: none;
+    border-radius: 3px;
     cursor: pointer;
-    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
-.logout-button:hover {
-    background-color: #c9302c;
+.data-table button:nth-child(1) {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.data-table button:nth-child(1):hover {
+    background-color: #2980b9;
+}
+
+.data-table button:nth-child(2) {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.data-table button:nth-child(2):hover {
+    background-color: #c0392b;
 }

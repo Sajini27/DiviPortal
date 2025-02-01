@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const { User } = require('../models');
 
 // User Signup
 const signup = async (req, res) => {
@@ -60,7 +60,7 @@ const login = async (req, res) => {
       );
   
       // Send user role along with token
-      res.status(200).json({ token, role: user.role, name: user.name, message: 'Login successful' });
+      res.status(200).json({ token, role: user.role, name: user.name, id: user._id, message: 'Login successful' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Server error' });

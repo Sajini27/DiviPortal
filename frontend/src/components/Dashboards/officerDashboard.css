@@ -1,42 +1,90 @@
+/* General Styles */
 .officer-dashboard {
-    text-align: center;
     padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
 }
 
+/* Heading Styles */
 .officer-dashboard h1 {
-    font-size: 2rem;
+    font-size: 28px;
+    color: #333;
     margin-bottom: 10px;
 }
 
 .officer-dashboard p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
+    font-size: 18px;
+    color: #555;
 }
 
-.dashboard-actions {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+/* Table Styles */
+.bookings-table {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-.action-button {
-    padding: 10px 20px;
-    font-size: 1rem;
+.bookings-table th, .bookings-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.bookings-table th {
     background-color: #007bff;
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    font-weight: bold;
 }
 
-.action-button:hover {
-    background-color: #0056b3;
+.bookings-table tbody tr:hover {
+    background-color: #f1f1f1;
 }
 
-.logout-button {
-    background-color: #dc3545;
+/* Status Styles */
+.bookings-table td:nth-child(5) {
+    font-weight: bold;
 }
 
-.logout-button:hover {
-    background-color: #c82333;
+.bookings-table td:nth-child(5):contains("pending") {
+    color: orange;
+}
+
+.bookings-table td:nth-child(5):contains("confirmed") {
+    color: green;
+}
+
+.bookings-table td:nth-child(5):contains("completed") {
+    color: blue;
+}
+
+/* Loading and Error Messages */
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.loading-message {
+    color: #007bff;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .bookings-table {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .bookings-table th, .bookings-table td {
+        padding: 8px;
+    }
 }

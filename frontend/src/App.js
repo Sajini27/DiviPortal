@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom'; // Import useLocation
+import { Routes, Route } from 'react-router-dom'; // Removed useLocation since it's no longer needed
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Hero from './components/Hero/Hero';
@@ -17,7 +17,6 @@ import Land from './components/Services/land/land';
 import Pension from './components/Services/pension/pension';
 import Permits from './components/Services/permits/permits';
 import AppointmentBooking from './components/Services/appoinment/AppointmentBooking';
-import Officer from './components/Services/appoinment/Officer';
 import Birth from './components/Services/civil/birth/birth';
 import Death from './components/Services/civil/death/death';
 import Marriage from './components/Services/civil/marriage/marriage';
@@ -34,20 +33,16 @@ import Orphans from './components/Services/pension/orphans/orphans';
 import ContactUs from './components/ContactUs/ContactUs';
 import OfficerDashboard from './components/Dashboards/OfficerDashboard';
 import AdminDashboard from './components/Dashboards/AdminDashboard';
+import StaffDashboard from './components/Dashboards/StaffDashboard';
+import AddOfficer from './components/Dashboards/adminFunctions/addOfficers';
+import AddStaff from './components/Dashboards/adminFunctions/addStaff';
+import Bookings from './components/Services/appoinment/booking';
 
 function App() {
-  const location = useLocation(); // Now this works correctly
-
-  // Define routes where Navbar and Footer should not be displayed
-  const hideNavbarFooterRoutes = ['/officer-dashboard', '/admin-dashboard'];
-
-  // Check if the current route is in the hideNavbarFooterRoutes array
-  const shouldHideNavbarFooter = hideNavbarFooterRoutes.includes(location.pathname);
-
   return (
     <div>
-      {/* Conditionally render Navbar */}
-      {!shouldHideNavbarFooter && <Navbar />}
+      {/* Always render Navbar */}
+      <Navbar />
 
       <div>
         <Routes>
@@ -69,7 +64,7 @@ function App() {
           <Route path="/pension" element={<Pension />} />
           <Route path="/permits" element={<Permits />} />
           <Route path="/appoinment" element={<AppointmentBooking />} />
-          <Route path="/officer/:id" element={<Officer />} />
+          <Route path="/bookings" element={<Bookings />} />
 
           <Route path="/birth" element={<Birth />} />
           <Route path="/marriage" element={<Marriage />} />
@@ -88,11 +83,17 @@ function App() {
           <Route path="/pension_for_orphans" element={<Orphans />} />
           <Route path="/officer-dashboard" element={<OfficerDashboard />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path='/staff-dashboard' element={<StaffDashboard />} />
+
+          <Route path="/admin/officers" element={<AddOfficer mode="add" />} />
+          <Route path="/admin/officers/edit/:id" element={<AddOfficer mode="edit" />} />
+          <Route path="/admin/staff" element={<AddStaff mode="add" />} />
+          <Route path="/admin/staff/edit/:id" element={<AddStaff mode="edit" />} />
         </Routes>
       </div>
 
-      {/* Conditionally render Footer */}
-      {!shouldHideNavbarFooter && <Footer />}
+      {/* Always render Footer */}
+      <Footer />
     </div>
   );
 }

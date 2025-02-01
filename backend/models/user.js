@@ -1,47 +1,43 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-// User Schema
+// Base User Schema
 const userSchema = new mongoose.Schema({
   name: {
-      type: String,
-      required: true,
+    type: String,
+    required: true,
   },
   email: {
-      type: String,
-      required: true,
-      unique: true,
+    type: String,
+    required: true,
+    unique: true,
   },
   password: {
-      type: String,
-      required: true,
+    type: String,
+    required: true,
   },
   role: {
-      type: String,
-      enum: ['user', 'admin', 'staff', 'officer'],
-      default: 'user',
+    type: String,
+    enum: ['user', 'admin', 'staff', 'officer'],
+    default: 'user',
   },
   phone: {
-    type: Number
+    type: Number,
   },
   address: {
-    type: String
+    type: String,
   },
   gsd: {
-    type: String
+    type: String,
   },
-  officerDetails: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Officer' // Linking officer details
-  }
 });
-
 
 // Match password function
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-const User = mongoose.model('User', userSchema);
+// Check if the model already exists before defining it
+const User = mongoose.models.User || mongoose.model('User', userSchema);
 
 module.exports = User;

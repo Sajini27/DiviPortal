@@ -1,0 +1,110 @@
+/* Container for the officer details */
+.booking-details {
+  margin-top: 120px !important;
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+  }
+  
+  /* Header styling */
+  .officer-details h2 {
+    margin-bottom: 20px;
+  }
+  
+  /* Officer image styling */
+  .officer-details img {
+    max-width: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  
+  /* Officer role paragraph */
+  .officer-details p {
+    font-size: 18px;
+    color: #555;
+  }
+  
+  /* Booking slots container */
+  .booking-slots {
+    margin-top: 30px;
+  }
+  
+  /* Days container (for weekday buttons) */
+  .days-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  /* Individual day slot */
+  .day-slot {
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    min-width: 60px;
+    background-color: #f0f0f0;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Active/selected day slot */
+  .day-slot.selected {
+    background-color: #4A90E2;
+    color: #fff;
+  }
+  
+  /* Time slots container */
+  .time-slots {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  /* Individual time slot */
+  .time-slot {
+    cursor: pointer;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+}
+
+.time-slot.disabled {
+    background-color: #f2f2f2;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.booked-label {
+    font-size: 0.8em;
+    color: red;
+    margin-left: 5px;
+}
+
+  
+  /* Active/selected time slot */
+  .time-slot.selected {
+    background-color: #4A90E2;
+    color: #fff;
+  }
+  
+  /* Book Appointment button */
+  .btn-book {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4A90E2;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-book:hover {
+    background-color: #357ABD; /* Slightly darker on hover */
+  }
+  

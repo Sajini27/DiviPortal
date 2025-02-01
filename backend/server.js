@@ -2,9 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const connectDb = require('./config/db');
 
-const authRouter = require('./routes/authRoutes');
+// Import all routes
+const authRoutes = require('./routes/authRoutes');
 const feedbackRoutes = require('./routes/feedbackRoutes');
 const userRoutes = require('./routes/userRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 
@@ -17,9 +20,11 @@ app.use(express.urlencoded({ extended: true }));
 connectDb();
 
 // Routes
-app.use('/api/auth', authRouter);
+app.use('/api/auth', authRoutes); // Authentication routes
 app.use('/api/feedback', feedbackRoutes); // Feedback routes
-app.use('/api/user', userRoutes);
+app.use('/api/user', userRoutes); // User routes
+app.use('/api/upload', uploadRoutes); // File upload routes
+app.use('/api/admin', adminRoutes); // Admin routes
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

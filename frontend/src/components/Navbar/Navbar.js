@@ -5,7 +5,7 @@ import dropdown_icon from '../../assets/dropdown_icon.svg';
 import './Navbar.css';
 
 function Navbar() {
-    const { token, userName, logout } = useContext(AppContext);
+    const { token, userName, role, logout } = useContext(AppContext); // Use `role` from context
     const [sticky, setSticky] = useState(false);
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const dropdownRef = useRef(null);
@@ -53,6 +53,11 @@ function Navbar() {
     // Get the first letter of the user's name
     const firstLetter = userName ? userName[0].toUpperCase() : '';
 
+    // Determine if the user is an admin, officer, or staff
+    const isAdmin = role === 'admin';
+    const isOfficer = role === 'officer';
+    const isStaff = role === 'staff';
+
     return (
         <nav className={`nav ${sticky ? 'sticky-nav' : ''}`}>
             <div className="logo-text">DiviPortal</div>
@@ -63,6 +68,14 @@ function Navbar() {
                 <li><Link to="/notifications">Notifications</Link></li>
                 <li><Link to="/contact">Contact Us</Link></li>
                 <li><Link to="/feedback">Feedback</Link></li>
+                {/* Conditionally render Dashboard link */}
+                {(isAdmin || isOfficer || isStaff) && (
+                    <li>
+                        <Link to={isAdmin ? '/admin-dashboard' : isOfficer ? '/officer-dashboard' : '/staff-dashboard'}>
+                            Dashboard
+                        </Link>
+                    </li>
+                )}
             </ul>
             <div className="flex items-center">
                 {token ? (
