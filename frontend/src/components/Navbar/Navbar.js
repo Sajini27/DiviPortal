@@ -86,7 +86,6 @@ function Navbar() {
                             <div ref={dropdownRef} className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
                                 <div className="dropdown-content">
                                     <p onClick={() => navigate('/profile')}>My Profile</p>
-                                    <p onClick={() => navigate('/appointments')}>Appointments</p>
                                     <p onClick={handleLogout}>Logout</p>
                                 </div>
                             </div>
