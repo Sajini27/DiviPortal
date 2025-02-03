@@ -45,3 +45,24 @@
   .main-content h1 {
     margin-top: 0;
   }
+
+  .status-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.status-button.pending {
+    background-color: #ffcc00;
+}
+
+.status-button.accepted {
+    background-color: #00cc00;
+    color: white;
+}
+
+.status-button.done {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}

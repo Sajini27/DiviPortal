@@ -18,13 +18,6 @@ const StaffDashboard = () => {
             {isSidebarMinimized ? ">" : "<"}
           </button>
         </div>
-        <ul className="sidebar-menu">
-          <li>Home</li>
-          <li>Payments</li>
-          <li>Documents</li>
-          <li>Appointments</li>
-          <li>Notifications</li>
-        </ul>
       </div>
 
       {/* Main Content */}

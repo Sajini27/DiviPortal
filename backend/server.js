@@ -25,7 +25,6 @@ app.use('/api/feedback', feedbackRoutes); // Feedback routes
 app.use('/api/user', userRoutes); // User routes
 app.use('/api/upload', uploadRoutes); // File upload routes
 app.use('/api/admin', adminRoutes); // Admin routes
-
 // Error Handling Middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);

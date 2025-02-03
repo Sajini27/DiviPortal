@@ -2,17 +2,20 @@
 .hero {
     width: 100%;
     min-height: 100vh; 
-    background: url('../../assets/office.jpg') no-repeat center center/cover;
+    background: url('../../assets/home.png') no-repeat center center/cover;
     color: #fff;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start; /* Align content to the left */
+    padding-left: 10%; /* Adjust spacing from the left */
+    text-align: left;
 }
 
 .hero-content {
     max-width: 1200px;
     padding: 0 20px;
+    display: flex;
+    justify-content: flex-start; /* Ensures left alignment */
 }
 
 .hero-text {
@@ -31,6 +34,7 @@
 .hero-text p {
     font-size: 20px;
     line-height: 1.6;
+    color: #2e2a2a;
     margin-bottom: 40px;
     max-width: 600px;
 }
@@ -53,6 +57,10 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .hero {
+        padding-left: 5%; /* Reduce left padding for smaller screens */
+    }
+
     .hero-text h1 {
         font-size: 48px;
     }
@@ -68,6 +76,10 @@
 }
 
 @media (max-width: 480px) {
+    .hero {
+        padding-left: 3%; /* Further reduce left padding for mobile */
+    }
+
     .hero-text h1 {
         font-size: 36px;
     }

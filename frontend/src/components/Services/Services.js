@@ -38,8 +38,8 @@ function Services() {
             path: '/land',
         },
         {
-            title: 'Booking Appointment',
-            description: 'Book appointments for various services with ease and convenience.',
+            title: 'Samurdhi Programme',
+            description: 'Government aimed at poverty alleviation through financial assistance and social empowerment for low-income families.',
             path: '/appoinment',
         },
     ];

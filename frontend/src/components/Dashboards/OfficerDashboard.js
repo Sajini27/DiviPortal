@@ -41,12 +41,34 @@ const OfficerDashboard = () => {
         }
     };
 
+    // Function to update booking status
+    const updateBookingStatus = async (bookingId, currentStatus) => {
+        let newStatus;
+        if (currentStatus === 'Pending') {
+            newStatus = 'Accepted';
+        } else if (currentStatus === 'Accepted') {
+            newStatus = 'Done';
+        } else {
+            return; // No further updates after 'Done'
+        }
+
+        try {
+            const response = await axios.put(`http://localhost:5000/api/admin/bookings/${bookingId}`, { status: newStatus });
+            const updatedBooking = response.data;
+
+            // Update the local state
+            setBookings(bookings.map(booking => 
+                booking._id === updatedBooking._id ? updatedBooking : booking
+            ));
+        } catch (err) {
+            setError(err.response?.data?.message || err.message);
+        }
+    };
 
     return (
         <div className="officer-dashboard">
             <h1>Welcome, Officer {officerData.name}!</h1>
             <p>Role: {officerData.role}</p>
-
 
             <h2>My Bookings</h2>
             {loading ? (
@@ -73,7 +95,15 @@ const OfficerDashboard = () => {
                                 <td>{booking.userId?.name || 'N/A'}</td>
                                 <td>{booking.userId?.email || 'N/A'}</td>
                                 <td>{new Date(booking.date).toLocaleString()}</td>
-                                <td>{booking.status}</td>
+                                <td>
+                                    <button 
+                                        className={`status-button ${booking.status.toLowerCase()}`}
+                                        onClick={() => updateBookingStatus(booking._id, booking.status)}
+                                        disabled={booking.status === 'Done'}
+                                    >
+                                        {booking.status}
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
