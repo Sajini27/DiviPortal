@@ -14,22 +14,21 @@ const OfficerDashboard = () => {
     useEffect(() => {
         const role = localStorage.getItem('role');
         const name = localStorage.getItem('name');
-        const officerId = localStorage.getItem('userId'); 
+        const officerId = localStorage.getItem('userId');
 
         if (role !== 'officer') {
-            navigate('/'); 
+            navigate('/');
             return;
         }
 
         setOfficerData({ name, role, officerId });
 
-        // Fetch officer bookings
         if (officerId) {
             fetchBookings(officerId);
         }
     }, [navigate]);
 
-    // Function to fetch bookings
+    // Fetch bookings for the officer
     const fetchBookings = async (officerId) => {
         try {
             const response = await axios.get(`http://localhost:5000/api/admin/bookings/${officerId}`);
@@ -41,30 +40,51 @@ const OfficerDashboard = () => {
         }
     };
 
-    // Function to update booking status
+    // Update booking status
     const updateBookingStatus = async (bookingId, currentStatus) => {
+        console.log("CLICKED - Booking ID:", bookingId, "Current Status:", currentStatus);
+      
         let newStatus;
         if (currentStatus === 'Pending') {
-            newStatus = 'Accepted';
+          newStatus = 'Accepted';
         } else if (currentStatus === 'Accepted') {
-            newStatus = 'Done';
+          newStatus = 'Done';
         } else {
-            return; // No further updates after 'Done'
+          console.log("No further updates after 'Done'"); // Add this
+          return;
         }
-
+      
+        console.log("New Status:", newStatus); // Add this
+      
         try {
-            const response = await axios.put(`http://localhost:5000/api/admin/bookings/${bookingId}`, { status: newStatus });
-            const updatedBooking = response.data;
-
-            // Update the local state
-            setBookings(bookings.map(booking => 
-                booking._id === updatedBooking._id ? updatedBooking : booking
-            ));
+          console.log("Sending PUT request to backend..."); // Add this
+          const { data: updatedBooking } = await axios.put(
+            `http://localhost:5000/api/admin/bookings/${bookingId}`,
+            { status: newStatus }
+          );
+          console.log("Backend Response:", updatedBooking); // Add this
+      
+          // Update local state
+          setBookings(prev => 
+            prev.map(booking => 
+              booking._id === updatedBooking._id ? updatedBooking : booking
+            )
+          );
+      
+          // Send notification when status is 'Accepted'
+          if (newStatus === 'Accepted') {
+            console.log("Sending notification..."); // Add this
+            await axios.post('http://localhost:5000/api/notifications', {
+              userId: updatedBooking.userId,
+              message: `Your booking (ID: ${bookingId}) has been accepted.`
+            });
+          }
         } catch (err) {
-            setError(err.response?.data?.message || err.message);
+          console.error('Error:', err);
+          setError(err.response?.data?.message || 'Failed to update status');
         }
-    };
-
+      };
+      
     return (
         <div className="officer-dashboard">
             <h1>Welcome, Officer {officerData.name}!</h1>
@@ -96,13 +116,11 @@ const OfficerDashboard = () => {
                                 <td>{booking.userId?.email || 'N/A'}</td>
                                 <td>{new Date(booking.date).toLocaleString()}</td>
                                 <td>
-                                    <button 
-                                        className={`status-button ${booking.status.toLowerCase()}`}
-                                        onClick={() => updateBookingStatus(booking._id, booking.status)}
-                                        disabled={booking.status === 'Done'}
-                                    >
+                                <button
+                                    onClick={() => updateBookingStatus(booking._id, booking.status)}
+                                    disabled={booking.status === 'Done'}>
                                         {booking.status}
-                                    </button>
+                                </button>
                                 </td>
                             </tr>
                         ))}

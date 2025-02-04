@@ -17,11 +17,15 @@ const bookingSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'confirmed', 'completed'],
-    default: 'pending',
+    enum: ['Pending', 'Accepted', 'Done'],
+    default: 'Pending',
   },
 });
 
 const Booking = mongoose.model('Booking', bookingSchema);
-
+bookingSchema.virtual('notifications', {
+  ref: 'Notification',
+  localField: 'userId',
+  foreignField: 'userId'
+});
 module.exports = Booking;

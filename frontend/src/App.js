@@ -39,6 +39,7 @@ import AddOfficer from './components/Dashboards/adminFunctions/addOfficers';
 import AddStaff from './components/Dashboards/adminFunctions/addStaff';
 import AddUser from './components/Dashboards/adminFunctions/addUser'; // Note: filename is case sensitive
 import Bookings from './components/Services/appoinment/booking';
+import Notifications from './components/Notifications/Notifications';
 
 function App() {
   return (
@@ -95,6 +96,7 @@ function App() {
           {/* Note the change from "/admin/user" to "/admin/users" */}
           <Route path="/admin/user" element={<AddUser mode="add" />} />
           <Route path="/admin/user/edit/:id" element={<AddUser mode="edit" />} />
+          <Route path="/notifications" element={<Notifications />} />
         </Routes>
       </div>
 

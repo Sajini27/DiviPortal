@@ -8,6 +8,7 @@ const feedbackRoutes = require('./routes/feedbackRoutes');
 const userRoutes = require('./routes/userRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const notificationRoutes = require('./routes/notificationRoutes'); // Add this line
 
 const app = express();
 
@@ -20,11 +21,13 @@ app.use(express.urlencoded({ extended: true }));
 connectDb();
 
 // Routes
-app.use('/api/auth', authRoutes); // Authentication routes
-app.use('/api/feedback', feedbackRoutes); // Feedback routes
-app.use('/api/user', userRoutes); // User routes
-app.use('/api/upload', uploadRoutes); // File upload routes
-app.use('/api/admin', adminRoutes); // Admin routes
+app.use('/api/auth', authRoutes);
+app.use('/api/feedback', feedbackRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/upload', uploadRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/notifications', notificationRoutes); // Add this line
+
 // Error Handling Middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
