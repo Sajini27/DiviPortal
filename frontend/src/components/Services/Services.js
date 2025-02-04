@@ -40,7 +40,7 @@ function Services() {
         {
             title: 'Samurdhi Programme',
             description: 'Government aimed at poverty alleviation through financial assistance and social empowerment for low-income families.',
-            path: '/appoinment',
+            path: '/samurdhiP',
         },
     ];
 

@@ -1,25 +1,25 @@
 .footer {
-    margin: 0 auto; /* Ensures proper centering */
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-top: 1px solid #797979;
-    padding: 15px 20px; /* Adds padding for better spacing */
-    background-color: #f9f9f9; /* Optional: Adds a background color */
+    padding: 15px 20px; 
+    background-color: #f9f9f9;
 }
 
 .footer ul {
-    margin: 0; /* Removes default margin */
-    padding: 0; /* Removes default padding */
-    display: flex; /* Aligns list items horizontally */
-    gap: 20px; /* Adds consistent spacing between items */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px; 
 }
 
 .footer ul li {
-    list-style: none; /* Removes bullet points */
-    margin: 0; /* Ensures no extra margin */
+    list-style: none;
+    margin: 0; 
 }
 
 .footer p {
-    margin: 0; /* Removes unwanted space around the paragraph */
+    margin: 0;
 }

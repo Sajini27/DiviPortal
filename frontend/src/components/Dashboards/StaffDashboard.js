@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./StaffDashboard.css"; // Import CSS file for styling
+import { Link } from "react-router-dom";
+import "./StaffDashboard.css";
 
 const StaffDashboard = () => {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
@@ -18,6 +19,12 @@ const StaffDashboard = () => {
             {isSidebarMinimized ? ">" : "<"}
           </button>
         </div>
+        <ul className="sidebar-menu">
+          <li>
+            <Link to="/samurdhi">Samurdhi Programme</Link>
+          </li>
+          {/* Add more sidebar items as needed */}
+        </ul>
       </div>
 
       {/* Main Content */}

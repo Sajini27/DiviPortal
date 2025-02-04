@@ -17,7 +17,6 @@ import Certificate from './components/Services/certificate/certificate';
 import Land from './components/Services/land/land';
 import Pension from './components/Services/pension/pension';
 import Permits from './components/Services/permits/permits';
-import AppointmentBooking from './components/Services/appoinment/AppointmentBooking';
 import Birth from './components/Services/civil/birth/birth';
 import Death from './components/Services/civil/death/death';
 import Marriage from './components/Services/civil/marriage/marriage';
@@ -40,6 +39,8 @@ import AddStaff from './components/Dashboards/adminFunctions/addStaff';
 import AddUser from './components/Dashboards/adminFunctions/addUser'; // Note: filename is case sensitive
 import Bookings from './components/Services/appoinment/booking';
 import Notifications from './components/Notifications/Notifications';
+import SamurdhiForm from "./components/Dashboards/staffFunction/SamurdhiForm";
+import SamurdhiCheck from './components/Services/SamurdhiCheck/SamurdhiCheck';
 
 function App() {
   return (
@@ -66,7 +67,6 @@ function App() {
           <Route path="/land" element={<Land />} />
           <Route path="/pension" element={<Pension />} />
           <Route path="/permits" element={<Permits />} />
-          <Route path="/appoinment" element={<AppointmentBooking />} />
           <Route path="/bookings" element={<Bookings />} />
 
           <Route path="/birth" element={<Birth />} />
@@ -97,6 +97,8 @@ function App() {
           <Route path="/admin/user" element={<AddUser mode="add" />} />
           <Route path="/admin/user/edit/:id" element={<AddUser mode="edit" />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/samurdhi" element={<SamurdhiForm />} />
+          <Route path='/samurdhiP' element={<SamurdhiCheck />} />
         </Routes>
       </div>
 

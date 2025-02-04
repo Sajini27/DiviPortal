@@ -8,7 +8,8 @@ const feedbackRoutes = require('./routes/feedbackRoutes');
 const userRoutes = require('./routes/userRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-const notificationRoutes = require('./routes/notificationRoutes'); // Add this line
+const notificationRoutes = require('./routes/notificationRoutes');
+const samurdhiRoutes = require('./routes/samurdhiRoutes'); // NEW
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/notifications', notificationRoutes); // Add this line
+app.use('/api/samurdhi', samurdhiRoutes); // NEW
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
