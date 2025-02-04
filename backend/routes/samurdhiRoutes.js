@@ -1,4 +1,3 @@
-// routes/samurdhiRoutes.js
 const express = require('express');
 const router = express.Router();
 const Samurdhi = require('../models/Samurdhi');
@@ -45,7 +44,7 @@ router.get('/search/:idNumber', async (req, res) => {
     const { idNumber } = req.params;
     const entry = await Samurdhi.findOne({ idNumber: idNumber });
     if (!entry) {
-      return res.status(404).json({ message: 'Record not found' });
+      return res.status(404).json({ message: 'Not found' });
     }
     res.status(200).json(entry);
   } catch (error) {

@@ -1,31 +1,13 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "./StaffDashboard.css";
+import Sidebar from './staffFunction/sideBar';
 
 const StaffDashboard = () => {
-  const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsSidebarMinimized(!isSidebarMinimized);
-  };
 
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
-      <div className={`sidebar ${isSidebarMinimized ? "minimized" : ""}`}>
-        <div className="sidebar-header">
-          <h3>Staff Dashboard</h3>
-          <button onClick={toggleSidebar} className="minimize-btn">
-            {isSidebarMinimized ? ">" : "<"}
-          </button>
-        </div>
-        <ul className="sidebar-menu">
-          <li>
-            <Link to="/samurdhi">Samurdhi Programme</Link>
-          </li>
-          {/* Add more sidebar items as needed */}
-        </ul>
-      </div>
+      <Sidebar />
 
       {/* Main Content */}
       <div className="main-content">

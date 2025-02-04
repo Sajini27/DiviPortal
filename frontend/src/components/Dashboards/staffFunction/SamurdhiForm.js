@@ -92,7 +92,7 @@ const SamurdhiProgramme = () => {
             required
           />
         </div>
-        <div className="form-group">
+        <div className="form-group checkbox-group">
           <label>
             <input
               type="checkbox"
@@ -119,30 +119,32 @@ const SamurdhiProgramme = () => {
       </form>
       {error && <p className="error">{error}</p>}
       <h3>Samurdhi Programme Entries</h3>
-      <table className="samurdhi-table">
-        <thead>
-          <tr>
-            <th>Name with Initials</th>
-            <th>ID Number</th>
-            <th>Has Samurdhi</th>
-            <th>Amount (Rupees)</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {entries.map(entry => (
-            <tr key={entry._id}>
-              <td>{entry.nameWithInitials}</td>
-              <td>{entry.idNumber}</td>
-              <td>{entry.hasSamurdhi ? "Yes" : "No"}</td>
-              <td>{entry.hasSamurdhi ? entry.amount : '-'}</td>
-              <td>
-                <button onClick={() => handleDelete(entry._id)} className="delete-btn">Delete</button>
-              </td>
+      <div className="table-container">
+        <table className="samurdhi-table">
+          <thead>
+            <tr>
+              <th>Name with Initials</th>
+              <th>ID Number</th>
+              <th>Has Samurdhi</th>
+              <th>Amount (Rupees)</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {entries.map(entry => (
+              <tr key={entry._id}>
+                <td>{entry.nameWithInitials}</td>
+                <td>{entry.idNumber}</td>
+                <td>{entry.hasSamurdhi ? "Yes" : "No"}</td>
+                <td>{entry.hasSamurdhi ? entry.amount : '-'}</td>
+                <td>
+                  <button onClick={() => handleDelete(entry._id)} className="delete-btn">Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

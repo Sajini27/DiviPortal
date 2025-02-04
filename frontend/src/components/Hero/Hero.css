@@ -1,7 +1,7 @@
 /* Hero Section */
 .hero {
     width: 100%;
-    min-height: 100vh; 
+    height: 100vh;  /* Ensure it exactly fits the viewport height */
     background: url('../../assets/home.png') no-repeat center center/cover;
     color: #fff;
     display: flex;
@@ -9,7 +9,9 @@
     justify-content: flex-start; /* Align content to the left */
     padding-left: 10%; /* Adjust spacing from the left */
     text-align: left;
+    overflow: hidden; /* Prevents any overflow causing scroll */
 }
+
 
 .hero-content {
     max-width: 1200px;

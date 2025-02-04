@@ -1,12 +1,10 @@
-/* General styles */
 .pension-container {
     padding: 20px;
     max-width: 1200px;
-    margin: 100px auto 0; /* Add margin at the top */
+    margin: 20px auto 0; 
     font-family: 'Arial', sans-serif;
 }
 
-/* Description section */
 .page-description {
     text-align: center;
     margin-bottom: 40px;
@@ -27,16 +25,14 @@
     margin: 0 auto;
 }
 
-/* Services grid */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Two columns */
     gap: 20px; /* Space between columns */
     padding: 20px;
-    align-items: center; /* Align items vertically in the center */
+    align-items: center; 
 }
 
-/* Service card */
 .service-card {
     background-color: #fff;
     border: 1px solid #e0e0e0;
