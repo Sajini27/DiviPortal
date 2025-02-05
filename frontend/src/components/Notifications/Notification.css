@@ -1,27 +1,24 @@
-/* Notification.css */
-
-/* Ensure the notifications container is visible below the navbar */
 .user-dashboard {
-    margin-top: 80px; /* Adjust this value to match your navbar's height */
+    margin-top: 80px; 
     padding: 20px;
     font-family: Arial, sans-serif;
     color: #333;
   }
   
-  /* Style the main heading */
+  /* main heading */
   .user-dashboard h1 {
     margin-bottom: 20px;
     font-size: 2rem;
   }
   
-  /* Style the list of notifications */
+  /* list of notifications */
   .notifications-list {
     list-style: none;
     padding: 0;
     margin: 0;
   }
   
-  /* Style each notification item */
+  /* notification item */
   .notifications-list li {
     border: 1px solid #ccc;
     padding: 15px;
@@ -39,13 +36,13 @@
     color: #777;
   }
   
-  /* Style for the notification message */
+  /* notification message */
   .notifications-list li p {
     margin: 0;
     flex: 1;
   }
   
-  /* Style for the Mark as Read button */
+  /* Mark as Read button */
   .notifications-list li button {
     padding: 8px 12px;
     border: none;

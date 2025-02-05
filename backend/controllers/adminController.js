@@ -1,4 +1,3 @@
-// adminController.js
 const { Officer, Staff, User } = require('../models');
 const bcrypt = require('bcryptjs');
 const Booking = require('../models/bookings');

@@ -5,12 +5,12 @@ import './civil.css';
 function Services() {
     const navigate = useNavigate();
 
-    // Function to handle service click
+    
     const handleServiceClick = (path) => {
         navigate(path);
     };
 
-    // List of services
+    
     const services = [
         {
             title: 'Birth Certificate',

@@ -1,7 +1,6 @@
-// routes/appointments.js
 const express = require('express');
 const router = express.Router();
-const Appointment = require('../models/Appointment'); // MongoDB model for appointments
+const Appointment = require('../models/Appointment'); //model for appointments
 
 // Get available time slots for a particular officer
 router.get('/available/:officerId', async (req, res) => {

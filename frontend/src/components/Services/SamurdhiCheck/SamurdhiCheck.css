@@ -1,4 +1,3 @@
-/* Container */
 .samurdhi-check-container {
     max-width: 600px;
     margin: 100px auto;
@@ -8,21 +7,18 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  /* Heading */
   .samurdhi-check-container h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #002244;
   }
   
-  /* Form */
   .samurdhi-check-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
   }
-  
-  /* Form Group */
+
   .form-group {
     display: flex;
     flex-direction: column;
@@ -46,8 +42,7 @@
     border-color: #007bff;
     outline: none;
   }
-  
-  /* Submit Button */
+
   .submit-btn {
     width: 150px;
     padding: 10px;
@@ -63,16 +58,14 @@
   .submit-btn:hover {
     background-color: #0056b3;
   }
-  
-  /* Error Message */
+ 
   .error-message {
     color: #dc3545;
     text-align: center;
     margin-top: 10px;
     font-size: 14px;
   }
-  
-  /* Result Container */
+ 
   .result-container {
     margin-top: 20px;
     padding: 15px;

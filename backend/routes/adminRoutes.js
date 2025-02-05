@@ -1,4 +1,3 @@
-// routes/adminRoutes.js
 const express = require('express');
 const axios = require('axios');
 const {
@@ -20,7 +19,7 @@ const {
   getUserById
 } = require('../controllers/adminController');
 
-const Booking = require('../models/bookings'); // Make sure the file is named correctly (e.g., bookings.js)
+const Booking = require('../models/bookings'); 
 
 const router = express.Router();
 

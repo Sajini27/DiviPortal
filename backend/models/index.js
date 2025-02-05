@@ -1,4 +1,3 @@
-// models/index.js
 const Officer = require('./Officer');
 const Admin = require('./Admin');
 const User = require('./user');

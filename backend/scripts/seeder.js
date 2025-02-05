@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const User = require('../models/user'); // Adjust path to your User model
+const User = require('../models/user'); 
 require('dotenv').config(); // Load environment variables from .env file
 
 // Check if the MONGODB_URL is being read
@@ -8,7 +8,7 @@ console.log('MONGODB_URL:', process.env.MONGODB_URL);
 
 const seedUsers = async () => {
     try {
-        // Connect to the database
+        
         await mongoose.connect(process.env.MONGODB_URL);
         console.log('Connected to MongoDB');
 

@@ -1,4 +1,3 @@
-// AdminDashboard.js
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/appContext';
 import { useNavigate } from 'react-router-dom';
@@ -47,7 +46,7 @@ const AdminDashboard = () => {
   const fetchUsers = async () => {
     try {
       // Ensure this endpoint returns the users from the "User" model.
-      // If your backend returns all types, you may filter them here.
+      // If backend returns all types,filter them here.
       const response = await axios.get('http://localhost:5000/api/admin/user');
       console.log('Fetched users:', response.data);
       setUsers(response.data);

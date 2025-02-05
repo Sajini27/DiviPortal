@@ -57,9 +57,9 @@ const SamurdhiCheck = () => {
             <p><strong>Name with Initials:</strong> {result.nameWithInitials}</p>
             <p><strong>ID Number:</strong> {result.idNumber}</p>
             <p><strong>Has Samurdhi:</strong> {result.hasSamurdhi ? 'Yes' : 'No'}</p>
-            {result.hasSamurdhi && (
+            {/* {result.hasSamurdhi && (
               <p><strong>Amount (Rupees):</strong> {result.amount}</p>
-            )}
+            )} */}
           </div>
         </div>
       )}
