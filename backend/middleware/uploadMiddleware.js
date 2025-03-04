@@ -2,33 +2,41 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Set up Multer for file storage
+// Ensure 'uploads' folder exists
+const uploadDir = path.join(__dirname, '../uploads');
+
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Configure storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Save files in the 'uploads' folder
+        cb(null, 'uploads/'); 
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname); // Unique filename
-    },
+        cb(null, Date.now() + '-' + file.originalname);
+    }
 });
 
-// File filter to allow only PDF files
+// File validation (only PDF)
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'application/pdf') {
+    const allowedTypes = ['application/pdf'];
+    if (allowedTypes.includes(file.mimetype)) {
         cb(null, true);
     } else {
-        cb(new Error('Only PDF files are allowed.'), false);
+        cb(new Error('Invalid file type. Only PDF files are allowed.'), false);
     }
 };
 
-const upload = multer({ storage, fileFilter });
+// Multer upload configuration
+const upload = multer({
+    storage,
+    fileFilter,
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+});
 
-// Create the 'uploads' folder if it doesn't exist
-if (!fs.existsSync('uploads')) {
-    fs.mkdirSync('uploads');
-}
-
-// Middleware for handling file uploads
+// Define the middleware correctly
 const uploadMiddleware = upload.fields([
     { name: 'birthCertificate', maxCount: 1 },
     { name: 'marriageCertificate', maxCount: 1 },
@@ -38,4 +46,5 @@ const uploadMiddleware = upload.fields([
     { name: 'otherDocuments', maxCount: 1 },
 ]);
 
+// Ensure we export it correctly as a function
 module.exports = uploadMiddleware;

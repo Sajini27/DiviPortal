@@ -39,6 +39,7 @@ import Bookings from "./components/Services/appoinment/booking";
 import Notifications from "./components/Notifications/Notifications";
 import SamurdhiForm from "./components/Dashboards/staffFunction/SamurdhiForm";
 import SamurdhiCheck from "./components/Services/SamurdhiCheck/SamurdhiCheck";
+import CivilRegistration from "./components/Dashboards/staffFunction/CivilRegistrationForm";
 
 function App() {
   return (
@@ -91,8 +92,9 @@ function App() {
           <Route path="/admin/user" element={<AddUser mode="add" />} />
           <Route path="/admin/user/edit/:id" element={<AddUser mode="edit" />} />
           <Route path="/notifications" element={<Notifications />} />
-          <Route path="/samurdhi" element={<SamurdhiForm />} />
+          <Route path="/samurdhiProgramme" element={<SamurdhiForm />} />
           <Route path="/samurdhiP" element={<SamurdhiCheck />} />
+          <Route path="/civilRegistration" element={<CivilRegistration />} />
         </Routes>
       </main>
 

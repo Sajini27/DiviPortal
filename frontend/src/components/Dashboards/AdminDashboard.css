@@ -1,11 +1,11 @@
 
 /* General Styles */
-.dashboard-container {
+.admin-dashboard-container {
     display: flex;
-    min-height: 100vh;
     background-color: #f4f7f6;
-    font-family: 'Arial', sans-serif;
+    overflow: hidden; /* Prevents hidden overflow */
 }
+
 
 /* Dashboard Content Styles */
 .dashboard-content {
@@ -15,7 +15,10 @@
     margin: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Enables vertical scrolling */
+    max-height: 90vh; /* Prevents it from exceeding viewport height */
 }
+
 
 .dashboard-content h1 {
     font-size: 28px;

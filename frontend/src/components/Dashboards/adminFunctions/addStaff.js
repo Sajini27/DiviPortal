@@ -70,6 +70,8 @@ const AddStaff = ({ mode = 'add' }) => { // Default mode is 'add'
         }
     };
 
+    
+
     return (
         <div className='dash-container'>
             <Sidebar />
@@ -124,17 +126,25 @@ const AddStaff = ({ mode = 'add' }) => { // Default mode is 'add'
                         />
                     </div>
 
-                    {/* division */}
+                    {/* Division Dropdown */}
                     <div className="form-group">
                         <label>Division</label>
-                        <input
-                            type="text"
+                        <select
                             name="division"
                             value={formData.division}
                             onChange={handleChange}
                             required
-                        />
+                        >
+                            <option value="">Select Division</option>
+                            <option value="Civil Registration">Civil Registration</option>
+                            <option value="Issuance of Permits">Issuance of Permits</option>
+                            <option value="Payment of Pension">Payment of Pension</option>
+                            <option value="Issuing Certificate">Issuing Certificate</option>
+                            <option value="Land Administration">Land Administration</option>
+                            <option value="Samurdhi Programme">Samurdhi Programme</option>
+                        </select>
                     </div>
+
 
                     {/* Submit Button */}
                     <button type="submit" className="submit-button">

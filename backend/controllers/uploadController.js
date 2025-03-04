@@ -1,38 +1,33 @@
-const File = require('../models/File');
+const Upload = require('../models/upload');
 
-const uploadFiles = async (req, res) => {
+exports.uploadFiles = async (req, res) => {
     try {
-        const { nameWithInitials, email, contactNumber } = req.body;
-        const files = req.files;
+        const { nameWithInitials, email, contactNumber, uid, serviceId } = req.body;
+        const uploadedFiles = [];
 
-        if (!files) {
-            return res.status(400).json({ message: 'No files uploaded.' });
+        if (req.files) {
+            Object.entries(req.files).forEach(([key, fileArray]) => {
+                const file = fileArray[0]; // Get the uploaded file
+                const relativePath = `uploads/${file.filename}`; // Use only the relative path
+
+                uploadedFiles.push({ name: key, path: relativePath });
+            });
         }
 
-        // Save form data and file metadata to MongoDB
-        const savedFiles = await Promise.all(
-            Object.entries(files).map(async ([fieldName, fileArray]) => {
-                const file = fileArray[0];
-                const newFile = new File({
-                    filename: file.originalname,
-                    path: file.path,
-                    size: file.size,
-                    uploadDate: new Date(),
-                    userDetails: {
-                        nameWithInitials,
-                        email,
-                        contactNumber,
-                    },
-                });
-                return await newFile.save();
-            })
-        );
+        const upload = new Upload({
+            nameWithInitials,
+            email,
+            contactNumber,
+            uid,
+            serviceId,
+            files: uploadedFiles
+        });
 
-        res.status(200).json({ message: 'Files uploaded successfully.', files: savedFiles });
+        await upload.save();
+        res.status(201).json({ message: 'Form submitted successfully', upload });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error uploading files.' });
+        res.status(500).json({ message: 'Error saving form data', error });
     }
 };
 
-module.exports = { uploadFiles };

@@ -129,7 +129,7 @@ const MyProfile = () => {
           </div>
           {role === "user" && (
             <div className="input-group">
-              <label>Division</label>
+              <label>Grama Sewa Division</label>
               <input
                 type="text"
                 name="division"
@@ -162,7 +162,7 @@ const MyProfile = () => {
             <p><strong>Phone:</strong> {userData.phone || "Empty"}</p>
             <p><strong>Address:</strong> {userData.address || "Empty"}</p>
             {role === "user" && (
-              <p><strong>Division:</strong> {userData.division || "Empty"}</p>
+              <p><strong>Grama Sewa Division:</strong> {userData.division || "Empty"}</p>
             )}
             {role === "staff" && (
               <p><strong>Department:</strong> {userData.department || "Empty"}</p>

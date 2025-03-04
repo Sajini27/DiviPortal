@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './SamurdhiForm.css';
+import Sidebar from './sideBar';
 
 const SamurdhiProgramme = () => {
   const [formData, setFormData] = useState({
@@ -69,7 +70,9 @@ const SamurdhiProgramme = () => {
   };
 
   return (
-    <div className="samurdhi-container">
+    <div className='staff-dashboard-container'>
+      <Sidebar />
+      <div className="samurdhi-container">
       <h2>Samurdhi Programme</h2>
       <form onSubmit={handleSubmit} className="samurdhi-form">
         <div className="form-group">
@@ -145,6 +148,7 @@ const SamurdhiProgramme = () => {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 };

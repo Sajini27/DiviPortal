@@ -119,10 +119,20 @@ const getAllStaff = async (req, res) => {
 
 const updateStaff = async (req, res) => {
   try {
-    const staff = await Staff.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const { password, ...rest } = req.body;
+
+    // If a password is provided, hash it
+    let updatedStaffData = { ...rest };
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updatedStaffData.password = hashedPassword;
+    }
+
+    const staff = await Staff.findByIdAndUpdate(req.params.id, updatedStaffData, { new: true });
     if (!staff) {
       return res.status(404).json({ message: 'Staff not found' });
     }
+
     res.status(200).json(staff);
   } catch (error) {
     res.status(400).json({ message: error.message });

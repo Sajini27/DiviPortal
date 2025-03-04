@@ -86,7 +86,7 @@ const AdminDashboard = () => {
   const filteredUsers = users.filter((user) => user.role === 'user');
 
   return (
-    <div className="dashboard-container">
+    <div className="admin-dashboard-container">
       <Sidebar />
 
       <div className="dashboard-content">

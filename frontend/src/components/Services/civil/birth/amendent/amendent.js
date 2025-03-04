@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import './amendent.css';
+import { AppContext } from '../../../../../context/appContext';
 
 const Amendment = () => {
+    const { userId } = useContext(AppContext); 
     const [formData, setFormData] = useState({
+        uid: userId,
+        serviceId: 'amendent@',
         nameWithInitials: '',
         email: '',
         contactNumber: '',
@@ -11,7 +15,7 @@ const Amendment = () => {
     const [files, setFiles] = useState({});
     const [message, setMessage] = useState('');
     const [uploadProgress, setUploadProgress] = useState(0);
-
+    
     // Handle input change for text fields
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -32,21 +36,26 @@ const Amendment = () => {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         const formDataToSend = new FormData();
-
+    
+        console.log("Uploaded Files:");
+    
         // Append text fields to FormData
         for (const [key, value] of Object.entries(formData)) {
+            console.log(`${key}: ${value}`);
             formDataToSend.append(key, value);
         }
-
-        // Append files to FormData
+    
+        // Append files to FormData and log file details
         for (const [documentName, file] of Object.entries(files)) {
             if (file) {
+                const relativePath = `uploads/${file.name}`;
                 formDataToSend.append(documentName, file);
+                formDataToSend.append(`${documentName}Path`, relativePath);
             }
         }
-
+    
         try {
             const response = await axios.post('http://localhost:5000/api/upload', formDataToSend, {
                 headers: {
@@ -59,12 +68,26 @@ const Amendment = () => {
                     setUploadProgress(percentCompleted);
                 },
             });
+    
             setMessage(response.data.message);
+    
+            // **Reset Form After Success**
+            setFormData({
+                uid: userId,
+                serviceId: 'amendent@',
+                nameWithInitials: '',
+                email: '',
+                contactNumber: '',
+            });
+            setFiles({});
+            setUploadProgress(0);
         } catch (error) {
             setMessage('Error submitting the form. Please try again.');
             console.error('Submission error:', error);
         }
     };
+    
+
 
     // List of required documents
     const requiredDocuments = [
@@ -93,7 +116,7 @@ const Amendment = () => {
 
                 <h3>Checking documents for correctness at home before availing services</h3>
 
-                
+
                 <form onSubmit={handleSubmit}>
                     {/* Name with Initials */}
                     <div className="form-group">
