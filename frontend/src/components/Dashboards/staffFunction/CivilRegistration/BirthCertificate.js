@@ -1,16 +1,15 @@
-import Sidebar from "./sideBar";
+import Sidebar from "../sideBar";
 import { useNavigate } from "react-router-dom";
-import './CivilRegistrationForm.css'
+import '../CivilRegistrationForm.css'
 
-const CivilRegistration = () => {
+const BirthCertificate = () => {
   const navigate = useNavigate();
 
   // Define navigation links for the topics
   const topics = [
-    { name: "Birth Certificate", path: "/civilRegistration/birthCertificate" },
-    { name: "Name Change", path: "/civilRegistration/nameChange" },
-    { name: "Copies of Marriage Certificate", path: "/civilRegistration/marriageCertificateCopies" },
-    { name: "Copies of Death Certificate", path: "/civilRegistration/deathCertificateCopies" },
+    { name: "Amendment", path: "/civilRegistration/birthCertificate/amendment" },
+    { name: "Delayed Birth Registration", path: "/civilRegistration/birthCertificate/delayedBirthRegistration" },
+    { name: "Copies of Birth Certificate", path: "/civilRegistration/birthCertificate/copiesofBirthCertificate" },
   ];
 
   return (
@@ -20,7 +19,7 @@ const CivilRegistration = () => {
 
       {/* Main Content */}
       <div className="main-content">
-        <h1>Civil Registration Area</h1>
+        <h1>Birth Certificate</h1>
 
         <ul className="topic-links">
           {topics.map((topic, index) => (
@@ -34,4 +33,4 @@ const CivilRegistration = () => {
   );
 };
 
-export default CivilRegistration;
+export default BirthCertificate;

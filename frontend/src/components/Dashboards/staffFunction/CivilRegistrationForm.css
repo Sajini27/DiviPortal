@@ -5,6 +5,7 @@
     padding: 80px;
     background-color: white;
     overflow-y: auto;
+    font-size: x-small;
   }
   
   /* List of topics */
@@ -30,3 +31,112 @@
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
   }
   
+  .amendment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .amendment-table th,
+  .amendment-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .amendment-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .amendment-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .amendment-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .amendment-table a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .amendment-table a:hover {
+    text-decoration: underline;
+  }
+  
+  .amendment-row {
+    background-color: #fff;
+  }
+  
+  .file-row {
+    background-color: #f9f9f9;
+  }
+  
+  .toggle-files-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .toggle-files-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .status-select {
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .status-select option[value="Pending"] {
+    color: #ffc107; /* Yellow for Pending */
+  }
+  
+  .status-select option[value="Approved"] {
+    color: #28a745; /* Green for Approved */
+  }
+  
+  .status-select option[value="Rejected"] {
+    color: #dc3545; /* Red for Rejected */
+  }
+
+  .notification-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .notification-item {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+  }
+  
+  .notification-item.unread {
+    background-color: #e7f3ff;
+    font-weight: bold;
+  }
+  
+  .notification-item.read {
+    background-color: #f9f9f9;
+  }
+  
+  .notification-item button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .notification-item button:hover {
+    background-color: #218838;
+  }

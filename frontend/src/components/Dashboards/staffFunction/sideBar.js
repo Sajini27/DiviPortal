@@ -12,6 +12,10 @@ const Sidebar = () => {
 
   // Fetch the user profile to get the division
   const fetchUserProfile = useCallback(async () => {
+    if (!token) {
+      return; // Exit early if no token
+    }
+
     try {
       const res = await axios.get("http://localhost:5000/api/user/profile", {
         headers: { Authorization: `Bearer ${token}` },

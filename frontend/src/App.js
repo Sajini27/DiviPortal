@@ -36,10 +36,13 @@ import AddOfficer from "./components/Dashboards/adminFunctions/addOfficers";
 import AddStaff from "./components/Dashboards/adminFunctions/addStaff";
 import AddUser from "./components/Dashboards/adminFunctions/addUser";
 import Bookings from "./components/Services/appoinment/booking";
-import Notifications from "./components/Notifications/Notifications";
 import SamurdhiForm from "./components/Dashboards/staffFunction/SamurdhiForm";
 import SamurdhiCheck from "./components/Services/SamurdhiCheck/SamurdhiCheck";
 import CivilRegistration from "./components/Dashboards/staffFunction/CivilRegistrationForm";
+import BirthCertificate from "./components/Dashboards/staffFunction/CivilRegistration/BirthCertificate";
+import AmendmentStaff from "./components/Dashboards/staffFunction/CivilRegistration/BirthCertificate/Amendment";
+import NotifyStaff from "./components/Dashboards/staffFunction/NotifyStaff";
+import UserNotifications from "./components/Notifications/Notifications";
 
 function App() {
   return (
@@ -91,10 +94,13 @@ function App() {
           <Route path="/admin/staff/edit/:id" element={<AddStaff mode="edit" />} />
           <Route path="/admin/user" element={<AddUser mode="add" />} />
           <Route path="/admin/user/edit/:id" element={<AddUser mode="edit" />} />
-          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/notifications" element={<UserNotifications />} />
+          <Route path="/staffNotifications" element={<NotifyStaff />} />
           <Route path="/samurdhiProgramme" element={<SamurdhiForm />} />
           <Route path="/samurdhiP" element={<SamurdhiCheck />} />
           <Route path="/civilRegistration" element={<CivilRegistration />} />
+          <Route path="/civilRegistration/birthCertificate" element={<BirthCertificate />} />
+          <Route path="/civilRegistration/birthCertificate/amendment" element={<AmendmentStaff />} />
         </Routes>
       </main>
 

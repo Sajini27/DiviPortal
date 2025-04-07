@@ -58,7 +58,6 @@ const login = async (req, res) => {
         process.env.JWT_SECRET,
         { expiresIn: '1d' }
       );
-  
       // Send user role along with token
       res.status(200).json({ token, role: user.role, name: user.name, id: user._id, message: 'Login successful' });
     } catch (error) {

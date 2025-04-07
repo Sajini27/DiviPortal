@@ -57,6 +57,7 @@ function Navbar() {
     const isAdmin = role === 'admin';
     const isOfficer = role === 'officer';
     const isStaff = role === 'staff';
+    const isUser = role === 'user';
 
     return (
         <nav className={`nav ${sticky ? 'sticky-nav' : ''}`}>
@@ -65,7 +66,16 @@ function Navbar() {
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/aboutUs">About Us</Link></li>
                 <li><Link to="/services">Services</Link></li>
-                <li><Link to="/notifications">Notifications</Link></li>
+                {(isUser) && (
+                    <li>
+                        <li><Link to="/notifications">Notifications</Link></li>
+                    </li>
+                )}
+                {(isAdmin || isOfficer || isStaff) && (
+                    <li>
+                        <li><Link to="/staffNotifications">Notifications</Link></li>
+                    </li>
+                )}
                 <li><Link to="/contact">Contact Us</Link></li>
                 <li><Link to="/feedback">Feedback</Link></li>
                 {/* Conditionally render Dashboard link */}
