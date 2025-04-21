@@ -1,4 +1,3 @@
-/* General Styles */
 :root {
   --primary-color: #007bff;
   --secondary-color: #0056b3;
@@ -11,15 +10,21 @@
 
 .officer-dashboard {
   padding: 2rem;
-  max-width: 1200px;
-  margin: 80px 0 auto;
   font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  margin-top: 100px;
 }
 
+/* Header */
 .dashboard-header {
   text-align: center;
   margin-bottom: 2rem;
-  margin-left: 250px;
+  width: 100%;
+  max-width: 900px;
 }
 
 .dashboard-header h1 {
@@ -39,7 +44,9 @@
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: var(--shadow);
-  margin-left: 250px;
+  width: 100%;
+  max-width: 900px;
+  box-sizing: border-box;
 }
 
 .bookings-section h2 {
@@ -113,15 +120,15 @@
 }
 
 .status-button.pending {
-  background-color: #ffd700; /* Yellow */
+  background-color: #ffd700;
 }
 
 .status-button.accepted {
-  background-color: #90ee90; /* Green */
+  background-color: #90ee90;
 }
 
 .status-button.done {
-  background-color: #cccccc; /* Gray */
+  background-color: #cccccc;
   cursor: not-allowed;
 }
 

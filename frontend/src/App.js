@@ -9,7 +9,6 @@ import Feedback from "./components/Feedback/Feedback";
 import Services from "./components/Services/Services";
 import Login from "./components/login/Login";
 import Myprofile from "./components/myprofile/Myprofile";
-import Myappoinment from "./components/myappoinment/Myappoinment";
 import Civil from "./components/Services/civil/civil";
 import Certificate from "./components/Services/certificate/certificate";
 import Land from "./components/Services/land/land";
@@ -42,6 +41,8 @@ import CivilRegistration from "./components/Dashboards/staffFunction/CivilRegist
 import BirthCertificate from "./components/Dashboards/staffFunction/CivilRegistration/BirthCertificate";
 import AmendmentStaff from "./components/Dashboards/staffFunction/CivilRegistration/BirthCertificate/Amendment";
 import NotifyStaff from "./components/Dashboards/staffFunction/NotifyStaff";
+import NotifyUser from "./components/Dashboards/userFunctions/NotifyUser";
+import NotifyOfficer from "./components/Dashboards/officerFunctions/NotifyOfficer";
 import UserNotifications from "./components/Notifications/Notifications";
 
 function App() {
@@ -62,7 +63,6 @@ function App() {
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Myprofile />} />
-          <Route path="/myappoinment" element={<Myappoinment />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/services" element={<Services />} />
@@ -96,6 +96,8 @@ function App() {
           <Route path="/admin/user/edit/:id" element={<AddUser mode="edit" />} />
           <Route path="/notifications" element={<UserNotifications />} />
           <Route path="/staffNotifications" element={<NotifyStaff />} />
+          <Route path="/userNotifications" element={<NotifyUser />} />
+          <Route path="/officerNotifications" element={<NotifyOfficer />} />
           <Route path="/samurdhiProgramme" element={<SamurdhiForm />} />
           <Route path="/samurdhiP" element={<SamurdhiCheck />} />
           <Route path="/civilRegistration" element={<CivilRegistration />} />

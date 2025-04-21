@@ -10,138 +10,94 @@ function Bookings() {
   const { userId } = useContext(AppContext);
   const navigate = useNavigate();
 
-  const [officerSlots, setOfficerSlots] = useState([]);
-  const [selectedDay, setSelectedDay] = useState(0);
+  const [monthSlots, setMonthSlots] = useState([]);
+  const [selectedDayIndex, setSelectedDayIndex] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [bookedKeys, setBookedKeys] = useState(new Set());
 
-  // Helper to format time as "HH:mm" (24-hour format)
-  const formatTime = (date) => {
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${hours}:${minutes}`;
-  };
+  const holidayDates = [];
 
-  // Helper to get a slot key from a date and time string ("YYYY-MM-DD HH:mm")
+  const formatTime = date => date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
   const getSlotKey = (date, timeStr) => {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day} ${timeStr}`;
+    const yyyy = date.getFullYear();
+    const M = (date.getMonth() + 1).toString().padStart(2, '0');
+    const D = date.getDate().toString().padStart(2, '0');
+    return `${yyyy}-${M}-${D} ${timeStr}`;
   };
+  const isHoliday = useCallback(d => holidayDates.includes(d.toISOString().slice(0, 10)), [holidayDates]);
 
-  // Memoized function to generate available slots for the next 5 days.
-  // Each day includes a list of time slots as objects { time, slotKey }.
-  const getAvailableSlots = useCallback(() => {
-    const daysOfWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI'];
+  const buildMonth = useCallback(() => {
     const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDayOfWeek = new Date(year, month, 1).getDay();
+
     const slots = [];
 
-    for (let i = 0; i < 5; i++) {
-      const currentDate = new Date(today);
-      currentDate.setDate(today.getDate() + i);
+    // Add empty placeholders before the first actual day
+    for (let i = 0; i < firstDayOfWeek; i++) {
+      slots.push({ placeholder: true });
+    }
 
-      // Set start (8:00 AM) and end (4:00 PM) times for the day
-      const startTime = new Date(currentDate);
-      startTime.setHours(8, 0, 0, 0);
-      const endTime = new Date(currentDate);
-      endTime.setHours(16, 0, 0, 0);
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dt = new Date(year, month, day);
+      const disabled = dt.getDay() === 0 || dt.getDay() === 6 || isHoliday(dt);
+      const times = [];
 
-      const timeSlots = [];
-      let slotTime = new Date(startTime);
-      while (slotTime < endTime) {
-        const timeStr = formatTime(slotTime);
-        const slotKey = getSlotKey(currentDate, timeStr);
-        timeSlots.push({ time: timeStr, slotKey });
-        slotTime.setMinutes(slotTime.getMinutes() + 30);
+      if (!disabled) {
+        const start = new Date(dt); start.setHours(8, 0, 0, 0);
+        const end = new Date(dt); end.setHours(16, 0, 0, 0);
+        let cur = new Date(start);
+        while (cur < end) {
+          const t = formatTime(cur);
+          times.push({ time: t, slotKey: getSlotKey(dt, t) });
+          cur.setMinutes(cur.getMinutes() + 30);
+        }
       }
 
-      slots.push({
-        date: currentDate,
-        formattedDate: `${daysOfWeek[(currentDate.getDay() + 6) % 7]} ${currentDate.getDate()}`,
-        allTimes: timeSlots,
-      });
+      slots.push({ date: dt, day: dt.getDate(), disabled, times });
     }
-    setOfficerSlots(slots);
-  }, []);
+    setMonthSlots(slots);
+  }, [isHoliday]);
 
-  // Run getAvailableSlots on component mount
-  useEffect(() => {
-    getAvailableSlots();
-  }, [getAvailableSlots]);
+  useEffect(() => { buildMonth(); }, [buildMonth]);
 
-  // Fetch booked slots from backend and convert each to a slot key
   useEffect(() => {
-    const fetchBookedSlots = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/api/user/booked/${officer._id}`
-        );
-        const { bookedSlots } = response.data;
-        // Use a Set to store the keys for faster lookup
+    if (!officer?._id) return;
+    axios.get(`http://localhost:5000/api/user/booked/${officer._id}`)
+      .then(({ data }) => {
         const keys = new Set();
-        bookedSlots.forEach((slotStr) => {
-          const slotDate = new Date(slotStr);
-          const timeStr = formatTime(slotDate);
-          // Use the date portion of the booking (local time) for the key
-          keys.add(getSlotKey(slotDate, timeStr));
+        data.bookedSlots.forEach(s => {
+          const d = new Date(s);
+          keys.add(getSlotKey(d, formatTime(d)));
         });
         setBookedKeys(keys);
-      } catch (error) {
-        console.error('Error fetching booked slots:', error.response?.data || error);
-      }
-    };
-
-    if (officer && officer._id) {
-      fetchBookedSlots();
-    }
+      })
+      .catch(console.error);
   }, [officer]);
 
-  // Check if a given slot key is booked
-  const isTimeBooked = (slotKey) => {
-    return bookedKeys.has(slotKey);
+  const handleBook = () => {
+    if (selectedDayIndex === null || !selectedTime) return alert('Select a date and time.');
+    if (!userId) return alert('Please log in first.');
+
+    const slot = monthSlots[selectedDayIndex];
+    const appt = new Date(slot.date);
+    const [hh, mm] = selectedTime.split(':');
+    appt.setHours(+hh, +mm);
+
+    axios.post('http://localhost:5000/api/user/book', {
+      officerId: officer._id,
+      date: appt,
+      userId
+    })
+      .then(() => { alert('Booked!'); navigate('/contact'); })
+      .catch(err => alert(err.response?.data?.message || 'Booking failed'));
   };
 
-  // Handle appointment booking on button click
-  const handleAppointmentBooking = async () => {
-    if (selectedTime === null) {
-      alert('Please select a time slot before booking.');
-      return;
-    }
+  if (!officer) return <div style={{ marginTop: 100 }}>Officer Not Found</div>;
 
-    const selectedSlot = officerSlots[selectedDay];
-    const appointmentDate = new Date(selectedSlot.date);
-    const [hour, minute] = selectedTime.split(':');
-    appointmentDate.setHours(parseInt(hour, 10), parseInt(minute, 10));
-
-    if (!userId) {
-      alert('User not logged in. Please log in first.');
-      return;
-    }
-
-    try {
-      await axios.post('http://localhost:5000/api/user/book', {
-        officerId: officer._id,
-        date: appointmentDate,
-        userId: userId,
-      });
-
-      alert('Appointment booked successfully!');
-      navigate('/contact');
-    } catch (error) {
-      console.error('Error booking appointment:', error.response?.data || error);
-      alert(error.response?.data?.message || 'Failed to book the appointment.');
-    }
-  };
-
-  if (!officer) {
-    return (
-      <div className="officer-details" style={{ marginTop: '100px' }}>
-        <h2>Officer Not Found</h2>
-        <p>There was an issue loading the officer's details. Please try again.</p>
-      </div>
-    );
-  }
+  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   return (
     <div className="booking-details">
@@ -149,50 +105,48 @@ function Bookings() {
       <p>{officer.designation}</p>
 
       <div className="booking-slots">
-        <h3>Booking Slots</h3>
+        <h3>{monthSlots.find(s => !s.placeholder)?.date?.toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
+
+        <div className="weekdays-container">
+          {weekdays.map(w => (
+            <div key={w} className="weekday-cell">{w}</div>
+          ))}
+        </div>
 
         <div className="days-container">
-          {officerSlots.map((slot, index) => (
-            <div
-              key={index}
-              className={`day-slot ${selectedDay === index ? 'selected' : ''}`}
-              onClick={() => {
-                setSelectedDay(index);
-                setSelectedTime(null);
-              }}
-            >
-              <div>{slot.formattedDate}</div>
-            </div>
+          {monthSlots.map((slot, idx) => (
+            slot.placeholder ? (
+              <div key={idx} className="day-slot placeholder"></div>
+            ) : (
+              <div
+                key={idx}
+                className={`day-slot ${slot.disabled ? 'disabled' : ''} ${selectedDayIndex === idx ? 'selected' : ''}`}
+                onClick={() => !slot.disabled && (setSelectedDayIndex(idx), setSelectedTime(null))}
+              >{slot.day}</div>
+            )
           ))}
         </div>
 
         <div className="time-slots">
-          {officerSlots[selectedDay]?.allTimes.length > 0 ? (
-            officerSlots[selectedDay].allTimes.map(({ time, slotKey }, index) => {
-              const booked = isTimeBooked(slotKey);
-              return (
-                <div
-                  key={index}
-                  className={`time-slot ${selectedTime === time ? 'selected' : ''} ${booked ? 'disabled' : ''}`}
-                  onClick={() => {
-                    if (!booked) {
-                      setSelectedTime(time);
-                    }
-                  }}
-                >
-                  {time}
-                  {booked && <span className="booked-label">Booked</span>}
-                </div>
-              );
-            })
+          {selectedDayIndex === null || monthSlots[selectedDayIndex]?.placeholder ? (
+            <p>Click a day to view times.</p>
+          ) : monthSlots[selectedDayIndex].times.length ? (
+            monthSlots[selectedDayIndex].times.map((t, i) => (
+              <div
+                key={i}
+                className={`time-slot ${bookedKeys.has(t.slotKey) ? 'disabled' : ''} ${selectedTime === t.time ? 'selected' : ''}`}
+                onClick={() => !bookedKeys.has(t.slotKey) && setSelectedTime(t.time)}
+              >
+                {t.time}
+                {bookedKeys.has(t.slotKey) && <span className="booked-label">Booked</span>}
+              </div>
+            ))
           ) : (
-            <p className="no-slots">No available slots for this day.</p>
+            <p>No slots on this day.</p>
           )}
         </div>
 
-        <button className="btn-book" onClick={handleAppointmentBooking}>
-          Book an Appointment
-        </button>
+        <button className="btn-book" onClick={handleBook}>Book Appointment</button>
       </div>
     </div>
   );

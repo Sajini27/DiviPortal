@@ -10,7 +10,6 @@ const OfficerDashboard = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    // Load officer data from localStorage
     useEffect(() => {
         const role = localStorage.getItem('role');
         const name = localStorage.getItem('name');
@@ -28,7 +27,6 @@ const OfficerDashboard = () => {
         }
     }, [navigate]);
 
-    // Fetch bookings for the officer
     const fetchBookings = async (officerId) => {
         try {
             const response = await axios.get(`http://localhost:5000/api/admin/bookings/${officerId}`);
@@ -40,7 +38,6 @@ const OfficerDashboard = () => {
         }
     };
 
-    // Update booking status
     const updateBookingStatus = async (bookingId, currentStatus) => {
         let newStatus;
         if (currentStatus === 'Pending') {
@@ -57,14 +54,12 @@ const OfficerDashboard = () => {
                 { status: newStatus }
             );
 
-            // Update local state
             setBookings(prev =>
                 prev.map(booking =>
                     booking._id === updatedBooking._id ? updatedBooking : booking
                 )
             );
 
-            // Send notification when status is 'Accepted'
             if (newStatus === 'Accepted') {
                 await axios.post('http://localhost:5000/api/notifications', {
                     userId: updatedBooking.userId,
