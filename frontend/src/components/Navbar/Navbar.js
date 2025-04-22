@@ -1,34 +1,31 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AppContext } from '../../context/appContext';
 import dropdown_icon from '../../assets/dropdown_icon.svg';
 import './Navbar.css';
 
 function Navbar() {
-    const { token, userName, role, logout } = useContext(AppContext); // Use `role` from context
+    const { token, userName, role, logout } = useContext(AppContext);
     const [sticky, setSticky] = useState(false);
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
+    const location = useLocation();
 
-    // Handle scroll to make navbar sticky
     const handleScroll = () => {
         setSticky(window.scrollY > 50);
     };
 
-    // Toggle dropdown visibility
     const handleDropdownClick = (e) => {
-        e.stopPropagation(); // Prevent event from closing immediately
+        e.stopPropagation();
         setDropdownVisible((prev) => !prev);
     };
 
-    // Handle logout
     const handleLogout = () => {
         logout();
         navigate('/');
     };
 
-    // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -42,7 +39,6 @@ function Navbar() {
         };
     }, []);
 
-    // Add scroll event listener
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => {
@@ -50,38 +46,46 @@ function Navbar() {
         };
     }, []);
 
-    // Get the first letter of the user's name
     const firstLetter = userName ? userName[0].toUpperCase() : '';
 
-    // Determine if the user is an admin, officer, or staff
     const isAdmin = role === 'admin';
     const isOfficer = role === 'officer';
     const isStaff = role === 'staff';
     const isUser = role === 'user';
 
+    const getLinkClass = (path) => {
+        return location.pathname === path ? 'nav-link active' : 'nav-link';
+    };
+
     return (
         <nav className={`nav ${sticky ? 'sticky-nav' : ''}`}>
             <div className="logo-text">DiviPortal</div>
             <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/aboutUs">About Us</Link></li>
-                <li><Link to="/services">Services</Link></li>
-                {(isUser) && (
-                    <li>
-                        <li><Link to="/notifications">Notifications</Link></li>
-                    </li>
+                <li><Link className={getLinkClass('/')} to="/">Home</Link></li>
+                <li><Link className={getLinkClass('/aboutUs')} to="/aboutUs">About Us</Link></li>
+                <li><Link className={getLinkClass('/services')} to="/services">Services</Link></li>
+                {isUser && (
+                    <li><Link className={getLinkClass('/notifications')} to="/notifications">Notifications</Link></li>
                 )}
                 {(isAdmin || isOfficer || isStaff) && (
-                    <li>
-                        <li><Link to="/staffNotifications">Notifications</Link></li>
-                    </li>
+                    <li><Link className={getLinkClass('/staffNotifications')} to="/staffNotifications">Notifications</Link></li>
                 )}
-                <li><Link to="/contact">Contact Us</Link></li>
-                <li><Link to="/feedback">Feedback</Link></li>
-                {/* Conditionally render Dashboard link */}
+                <li><Link className={getLinkClass('/contact')} to="/contact">Contact Us</Link></li>
+                <li><Link className={getLinkClass('/feedback')} to="/feedback">Feedback</Link></li>
                 {(isAdmin || isOfficer || isStaff) && (
                     <li>
-                        <Link to={isAdmin ? '/admin-dashboard' : isOfficer ? '/officer-dashboard' : '/staff-dashboard'}>
+                        <Link
+                            className={getLinkClass(
+                                isAdmin ? '/admin-dashboard' :
+                                isOfficer ? '/officer-dashboard' :
+                                '/staff-dashboard'
+                            )}
+                            to={
+                                isAdmin ? '/admin-dashboard' :
+                                isOfficer ? '/officer-dashboard' :
+                                '/staff-dashboard'
+                            }
+                        >
                             Dashboard
                         </Link>
                     </li>

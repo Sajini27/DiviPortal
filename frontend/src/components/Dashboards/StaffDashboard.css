@@ -42,7 +42,7 @@
 /* Main Content */
 .main-content {
   flex: 1;
-  padding: 20px;
+  padding: 20px 40px;
   background-color: white;
   overflow-y: auto;
 }
@@ -50,8 +50,14 @@
 .main-content h1 {
   margin-top: 0;
   color: #002244;
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
 
-.main-content p {
-  color: #555;
+.dashboard-intro {
+  color: #444;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin-top: 0;
 }

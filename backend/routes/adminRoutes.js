@@ -86,6 +86,24 @@ router.put('/bookings/:bookingId', async (req, res) => {
   }
 });
 
+// Add this DELETE route for deleting a booking
+router.delete('/bookings/:bookingId', async (req, res) => {
+  try {
+    const { bookingId } = req.params;
+    const deletedBooking = await Booking.findByIdAndDelete(bookingId);
+
+    if (!deletedBooking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    res.status(200).json({ message: 'Booking deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting booking:', error);
+    res.status(500).json({ message: 'Failed to delete booking.' });
+  }
+});
+
+
 // ---------------------------
 // User Routes
 // ---------------------------

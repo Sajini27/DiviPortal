@@ -71,7 +71,7 @@ function ContactUs() {
               <th>Designation</th>
               <th>Telephone</th>
               <th>Fax</th>
-              <th>In-Seat</th>
+              <th>In-Seat (Today)</th>
               <th>Booking Appointment</th>
               {isAdmin && <th>Action</th>} {/* Conditionally render Action column */}
             </tr>

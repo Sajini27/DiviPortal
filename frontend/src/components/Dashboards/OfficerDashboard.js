@@ -40,13 +40,9 @@ const OfficerDashboard = () => {
 
     const updateBookingStatus = async (bookingId, currentStatus) => {
         let newStatus;
-        if (currentStatus === 'Pending') {
-            newStatus = 'Accepted';
-        } else if (currentStatus === 'Accepted') {
-            newStatus = 'Done';
-        } else {
-            return;
-        }
+        if (currentStatus === 'Pending') newStatus = 'Accepted';
+        else if (currentStatus === 'Accepted') newStatus = 'Done';
+        else return;
 
         try {
             const { data: updatedBooking } = await axios.put(
@@ -72,6 +68,41 @@ const OfficerDashboard = () => {
         }
     };
 
+    const deleteBooking = async (bookingId) => {
+        if (!window.confirm('Are you sure you want to delete this booking?')) return;
+
+        try {
+            await axios.delete(`http://localhost:5000/api/admin/bookings/${bookingId}`);
+            setBookings(prev => prev.filter(booking => booking._id !== bookingId));
+        } catch (err) {
+            console.error('Delete error:', err);
+            setError(err.response?.data?.message || 'Failed to delete booking');
+        }
+    };
+
+    const groupBookingsByMonth = (bookings) => {
+        const grouped = {};
+
+        bookings.forEach((booking) => {
+            const date = new Date(booking.date);
+            const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+            if (!grouped[key]) {
+                grouped[key] = [];
+            }
+            grouped[key].push(booking);
+        });
+
+        return grouped;
+    };
+
+    const formatMonthYear = (key) => {
+        const [year, month] = key.split('-');
+        const date = new Date(year, parseInt(month) - 1);
+        return date.toLocaleString('default', { month: 'long', year: 'numeric' });
+    };
+
+    const groupedBookings = groupBookingsByMonth(bookings);
+
     return (
         <div className="officer-dashboard">
             <div className="dashboard-header">
@@ -88,35 +119,50 @@ const OfficerDashboard = () => {
                 ) : bookings.length === 0 ? (
                     <p className="no-bookings">No bookings found.</p>
                 ) : (
-                    <table className="bookings-table">
-                        <thead>
-                            <tr>
-                                <th>Booking ID</th>
-                                <th>User Name</th>
-                                <th>User Email</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {bookings.map((booking) => (
-                                <tr key={booking._id}>
-                                    <td>{booking._id}</td>
-                                    <td>{booking.userId?.name || 'N/A'}</td>
-                                    <td>{booking.userId?.email || 'N/A'}</td>
-                                    <td>{new Date(booking.date).toLocaleString()}</td>
-                                    <td>
-                                        <button
-                                            className={`status-button ${booking.status.toLowerCase()}`}
-                                            onClick={() => updateBookingStatus(booking._id, booking.status)}
-                                            disabled={booking.status === 'Done'}>
-                                            {booking.status}
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    Object.entries(groupedBookings).map(([key, monthBookings]) => (
+                        <div key={key} className="monthly-table">
+                            <h3 className="month-title">{formatMonthYear(key)}</h3>
+                            <table className="bookings-table">
+                                <thead>
+                                    <tr>
+                                        <th>Booking ID</th>
+                                        <th>User Name</th>
+                                        <th>User Email</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {monthBookings.map((booking) => (
+                                        <tr key={booking._id}>
+                                            <td>{booking._id}</td>
+                                            <td>{booking.userId?.name || 'N/A'}</td>
+                                            <td>{booking.userId?.email || 'N/A'}</td>
+                                            <td>{new Date(booking.date).toLocaleString()}</td>
+                                            <td>
+                                                <button
+                                                    className={`status-button ${booking.status.toLowerCase()}`}
+                                                    onClick={() => updateBookingStatus(booking._id, booking.status)}
+                                                    disabled={booking.status === 'Done'}
+                                                >
+                                                    {booking.status}
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button
+                                                    className="delete-button"
+                                                    onClick={() => deleteBooking(booking._id)}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ))
                 )}
             </div>
         </div>

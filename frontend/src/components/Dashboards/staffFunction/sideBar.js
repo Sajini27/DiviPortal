@@ -12,25 +12,22 @@ const Sidebar = () => {
 
   // Fetch the user profile to get the division
   const fetchUserProfile = useCallback(async () => {
-    if (!token) {
-      return; // Exit early if no token
-    }
+    if (!token) return;
 
     try {
       const res = await axios.get("http://localhost:5000/api/user/profile", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setDivision(res.data.division); // Assuming `division` is part of the user data
+      setDivision(res.data.division);
     } catch (error) {
       console.error("Error fetching user profile:", error);
     }
-  }, [token]); // useCallback ensures the function reference stays stable
+  }, [token]);
 
   useEffect(() => {
     fetchUserProfile();
-  }, [fetchUserProfile]); // Add `fetchUserProfile` to the dependencies
+  }, [fetchUserProfile]);
 
-  // Define the list of links based on division
   const navigationLinks = {
     "Samurdhi Programme": [
       { name: "Samurdhi Programme Page", path: "/samurdhiProgramme" },
@@ -47,10 +44,8 @@ const Sidebar = () => {
     "Issuing Certificate": [
       { name: "Issuing Certificate Page", path: "/issuingCertificate" },
     ],
-    // Add other divisions as needed
   };
 
-  // Render sidebar content based on the division
   const renderSidebarLinks = () => {
     if (division && navigationLinks[division]) {
       return (
@@ -63,12 +58,23 @@ const Sidebar = () => {
         </ul>
       );
     }
-    return null; // Return null if no division or no links for that division
+    return null;
   };
+
+  // Determine if division is one of the staff divisions
+  const isStaffDivision = [
+    "Civil Registration",
+    "Samurdhi Programme",
+    "Issuance of Permits",
+    "Payment of Pension",
+    "Issuing Certificate"
+  ].includes(division);
+
+  const sidebarTitle = isStaffDivision ? "Staff Dashboard" : `${division} Dashboard`;
 
   return (
     <div className="sidebar">
-      <h2 className="sidebar-title">{division ? `${division} Dashboard` : "Dashboard"}</h2>
+      <h2 className="sidebar-title">{division ? sidebarTitle : "Dashboard"}</h2>
       {error && <p className="error-message">{error}</p>}
       {renderSidebarLinks()}
     </div>
