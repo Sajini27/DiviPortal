@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 import { AppContext } from '../../context/appContext';
@@ -9,27 +9,21 @@ const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    name: '', // Only used for Sign Up
+    name: '',
   });
-  const [state, setState] = useState('Login'); // 'Sign Up' or 'Login'
+  const [state, setState] = useState('Login');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission (Login or Sign Up)
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     const { email, password, name } = formData;
-    // Prepare user details based on state (Sign Up / Login)
     const userDetails = state === 'Sign Up' ? { email, password, name } : { email, password };
 
     try {
@@ -39,43 +33,28 @@ const Login = () => {
           : 'http://localhost:5000/api/auth/login';
 
       const response = await axios.post(url, userDetails);
-      // Destructure token, role, name, and userId from the response
       const { token, role, name: returnedName, id: userId } = response.data;
 
-      console.log('User Name:', returnedName);
-      console.log('User Role:', role);
-      console.log('User ID:', userId);
-
-      // Store token, userName, userId, and role in localStorage
       localStorage.setItem('authToken', token);
       localStorage.setItem('userName', returnedName);
       localStorage.setItem('userId', userId);
       localStorage.setItem('role', role);
-
-      // Update AppContext state with all details
       login(token, returnedName, userId, role);
 
-      // Set success message
       setMessage(state === 'Sign Up' ? 'Account created successfully!' : 'Logged in successfully!');
 
-      // Navigate based on user role
       if (state === 'Sign Up') {
-        navigate('/login'); // Redirect to login page after successful sign up
+        navigate('/login');
       } else {
-        if (role === 'user') {
-          navigate('/');
-        } else if (role === 'admin') {
-          navigate('/admin-dashboard');
-        } else if (role === 'officer') {
-          navigate('/officer-dashboard');
-        } else if (role === 'staff') {
-          navigate('/staff-dashboard');
-        } else {
-          navigate('/'); // Fallback to home if no role is recognized
-        }
+        const roleRoutes = {
+          user: '/',
+          admin: '/admin-dashboard',
+          officer: '/officer-dashboard',
+          staff: '/staff-dashboard',
+        };
+        navigate(roleRoutes[role] || '/');
       }
     } catch (error) {
-      console.error('Error:', error.response ? error.response.data : error);
       setMessage(error.response?.data?.message || 'An error occurred.');
     }
   };
@@ -133,32 +112,31 @@ const Login = () => {
           />
         </div>
 
+        {state === 'Login' && (
+          <div className="forgot-password">
+            <Link to="/forgot-password" className="forgot-link">
+              Forgot Password?
+            </Link>
+          </div>
+        )}
+
         <button type="submit" className="login-button">
           {state === 'Sign Up' ? 'Create Account' : 'Login'}
         </button>
 
-        {/* Display success or error message */}
         {message && (
-          <div
-            className={`message ${
-              message.includes('successfully')
-                ? 'success-message'
-                : 'error-message'
-            }`}
-          >
+          <div className={`message ${message.includes('successfully') ? 'success-message' : 'error-message'}`}>
             {message}
           </div>
         )}
 
         <div className="form-footer">
           <p>
-            {state === 'Sign Up'
-              ? 'Already have an account?'
-              : "Don't have an account?"}{' '}
+            {state === 'Sign Up' ? 'Already have an account?' : "Don't have an account?"}{' '}
             <span
               onClick={() => {
                 setState(state === 'Sign Up' ? 'Login' : 'Sign Up');
-                setMessage(''); // Clear message when switching states
+                setMessage('');
               }}
               className="toggle-link"
             >

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./Notification.css"; // New CSS file or reuse existing
+import "./Notification.css";
 
 const UserNotifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -25,7 +25,6 @@ const UserNotifications = () => {
       } catch (err) {
         setError(err.response?.data?.message || "Error fetching notifications");
         setLoading(false);
-        console.error("Axios Error:", err);
         if (err.response?.status === 401) {
           window.location.href = "/login";
         }
@@ -37,30 +36,26 @@ const UserNotifications = () => {
 
   const markAsRead = async (notificationId) => {
     const token = localStorage.getItem("authToken");
-    if (!token) {
-      setError("Please log in to mark notifications as read.");
-      return;
-    }
+    if (!token) return;
 
     try {
-      const response = await axios.put(
+      await axios.put(
         `http://localhost:5000/api/notifications/${notificationId}/read`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setNotifications((prev) =>
-        prev.map((notif) =>
+      setNotifications(prev =>
+        prev.map(notif =>
           notif._id === notificationId ? { ...notif, isRead: true } : notif
         )
       );
     } catch (err) {
-      console.error("Error marking as read:", err.response?.data);
-      setError(err.response?.data?.message || "Error marking notification as read");
+      console.error("Error marking as read:", err);
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">{error}</div>;
 
   return (
     <div className="user-notifications-container">
@@ -74,21 +69,20 @@ const UserNotifications = () => {
               key={notification._id}
               className={`notification-item ${notification.isRead ? "read" : "unread"}`}
             >
-              <p>{notification.message}</p>
-              <small>{new Date(notification.createdAt).toLocaleString()}</small>
-              <br />
-              {notification.relatedId && (
-                <p>
-                  Application Status: <span className={`status-${notification.relatedId.status.toLowerCase()}`}>
-                    {notification.relatedId.status}
-                  </span>
-                </p>
-              )}
-              {!notification.isRead && (
-                <button onClick={() => markAsRead(notification._id)}>
-                  Mark as Read
-                </button>
-              )}
+              <div className="notification-content">
+                <p className="notification-message">{notification.message}</p>
+                <small className="notification-time">
+                  {new Date(notification.createdAt).toLocaleString()}
+                </small>
+                {!notification.isRead && (
+                  <button 
+                    className="mark-read-button"
+                    onClick={() => markAsRead(notification._id)}
+                  >
+                    Mark as Read
+                  </button>
+                )}
+              </div>
             </li>
           ))}
         </ul>

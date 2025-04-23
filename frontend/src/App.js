@@ -44,7 +44,7 @@ import NotifyStaff from "./components/Dashboards/staffFunction/NotifyStaff";
 import NotifyUser from "./components/Dashboards/userFunctions/NotifyUser";
 import NotifyOfficer from "./components/Dashboards/officerFunctions/NotifyOfficer";
 import UserNotifications from "./components/Notifications/Notifications";
-
+import Forgot from "./components/login/forgot";
 function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
@@ -103,6 +103,7 @@ function App() {
           <Route path="/civilRegistration" element={<CivilRegistration />} />
           <Route path="/civilRegistration/birthCertificate" element={<BirthCertificate />} />
           <Route path="/civilRegistration/birthCertificate/amendment" element={<AmendmentStaff />} />
+          <Route path="/forgot-password" element={<Forgot />} />
         </Routes>
       </main>
 

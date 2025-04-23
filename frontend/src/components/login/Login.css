@@ -80,3 +80,20 @@
 .toggle-link:hover {
   text-decoration: underline;
 }
+
+
+.forgot-password {
+  text-align: right;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
+.forgot-link {
+  color: #007bff;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}

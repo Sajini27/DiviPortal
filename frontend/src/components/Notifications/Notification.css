@@ -1,53 +1,77 @@
 .user-notifications-container {
-  padding: 20px;
+  padding: 2rem;
   max-width: 800px;
-  margin: 0 auto;
-  margin-top: 80px;
+  margin: 100px auto 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .notification-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .notification-item {
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #ddd;
-  border-radius: 3px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
 }
 
 .notification-item.unread {
-  background-color: #e7f3ff;
-  font-weight: bold;
+  background-color: #f0f8ff;
+  border-left: 4px solid #007bff;
 }
 
 .notification-item.read {
   background-color: #f9f9f9;
+  opacity: 0.8;
 }
 
-.notification-item button {
-  margin-top: 5px;
-  padding: 5px 10px;
-  background-color: #28a745;
+.notification-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.notification-message {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.notification-time {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.mark-read-button {
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s ease;
 }
 
-.notification-item button:hover {
-  background-color: #218838;
+.mark-read-button:hover {
+  background-color: #0056b3;
 }
 
-.status-pending {
-  color: #ffc107; /* Yellow */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
 }
 
-.status-approved {
-  color: #28a745; /* Green */
-}
-
-.status-rejected {
-  color: #dc3545; /* Red */
+.error {
+  color: #dc3545;
+  text-align: center;
+  padding: 2rem;
 }

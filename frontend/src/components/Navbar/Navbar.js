@@ -64,14 +64,18 @@ function Navbar() {
                 <li><Link className={getLinkClass('/')} to="/">Home</Link></li>
                 <li><Link className={getLinkClass('/aboutUs')} to="/aboutUs">About Us</Link></li>
                 <li><Link className={getLinkClass('/services')} to="/services">Services</Link></li>
+
                 {isUser && (
                     <li><Link className={getLinkClass('/notifications')} to="/notifications">Notifications</Link></li>
                 )}
-                {(isAdmin || isOfficer || isStaff) && (
+
+                {isStaff && (
                     <li><Link className={getLinkClass('/staffNotifications')} to="/staffNotifications">Notifications</Link></li>
                 )}
+
                 <li><Link className={getLinkClass('/contact')} to="/contact">Contact Us</Link></li>
                 <li><Link className={getLinkClass('/feedback')} to="/feedback">Feedback</Link></li>
+
                 {(isAdmin || isOfficer || isStaff) && (
                     <li>
                         <Link

@@ -57,9 +57,11 @@ const OfficerDashboard = () => {
             );
 
             if (newStatus === 'Accepted') {
+                // Send notification to the user
                 await axios.post('http://localhost:5000/api/notifications', {
-                    userId: updatedBooking.userId,
-                    message: `Your booking (ID: ${bookingId}) has been accepted.`
+                    userId: updatedBooking.userId._id,
+                    message: `Your appointment (Booking ID: ${bookingId}) has been accepted.`,
+                    relatedBooking: bookingId,
                 });
             }
         } catch (err) {
@@ -82,16 +84,12 @@ const OfficerDashboard = () => {
 
     const groupBookingsByMonth = (bookings) => {
         const grouped = {};
-
         bookings.forEach((booking) => {
             const date = new Date(booking.date);
             const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-            if (!grouped[key]) {
-                grouped[key] = [];
-            }
+            if (!grouped[key]) grouped[key] = [];
             grouped[key].push(booking);
         });
-
         return grouped;
     };
 
