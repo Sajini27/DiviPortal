@@ -1,4 +1,4 @@
-// models/Samurdhi.js
+
 const mongoose = require('mongoose');
 
 const samurdhiSchema = new mongoose.Schema({

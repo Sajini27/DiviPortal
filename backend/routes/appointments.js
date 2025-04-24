@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Appointment = require('../models/Appointment'); //model for appointments
+const Appointment = require('../models/Appointment'); 
 
-// Get available time slots for a particular officer
+
 router.get('/available/:officerId', async (req, res) => {
   try {
     const { officerId } = req.params;
 
-    // Get all appointments for this officer
+  
     const appointments = await Appointment.find({ officer: officerId });
 
     // Define officer's working hours (for example, 9 AM to 5 PM)

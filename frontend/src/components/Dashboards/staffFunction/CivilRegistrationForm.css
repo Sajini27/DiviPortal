@@ -1,14 +1,11 @@
-/* CivilRegistrationForm.css */
 
-/* Main content area */
 .main-content {
     padding: 80px;
     background-color: white;
     overflow-y: auto;
     font-size: x-small;
   }
-  
-  /* List of topics */
+ 
   .topic-links {
     list-style: none;
     padding: 0;
@@ -28,7 +25,7 @@
   
   .topic-link:hover {
     background-color: #e0e0e0;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
   }
   
   .amendment-table {

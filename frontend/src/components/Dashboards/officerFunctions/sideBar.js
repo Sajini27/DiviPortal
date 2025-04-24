@@ -47,7 +47,7 @@ const Sidebar = () => {
     "Issuing Certificate": [
       { name: "Issuing Certificate Page", path: "/issuingCertificate" },
     ],
-    // Add other divisions as needed
+   
   };
 
   // Render sidebar content based on the division

@@ -1,4 +1,4 @@
-/* Samurdhi Container */
+
 .samurdhi-container {
     padding: 20px;
     margin-top: 80px;
@@ -7,7 +7,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
-  /* Form Styling */
   .samurdhi-form {
     display: flex;
     flex-direction: column;
@@ -52,8 +51,7 @@
   .submit-btn:hover {
     background-color: #0056b3;
   }
-  
-  /* Table Styling */
+
   .samurdhi-table {
     width: 100%;
     border-collapse: collapse;
@@ -84,8 +82,7 @@
   .delete-btn:hover {
     background-color: #c82333;
   }
-  
-  /* Error Message */
+ 
   .error {
     color: #dc3545;
     margin-top: 10px;

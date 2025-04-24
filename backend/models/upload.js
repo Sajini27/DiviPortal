@@ -14,16 +14,14 @@ const uploadSchema = new mongoose.Schema({
   ],
   status: {
     type: String,
-    enum: ['Pending', 'Approved', 'Rejected'], // Restrict to these values
-    default: 'Pending', // Default status when submitted
+    enum: ['Pending', 'Approved', 'Rejected'],
+    default: 'Pending',
   },
   createdAt: { type: Date, default: Date.now }
 });
-
-// Define the model **before** calling dropIndex
 const Upload = mongoose.model('Upload', uploadSchema);
 
-// Drop the unique index on `email` if it exists
+
 Upload.collection.dropIndex("email_1").catch(err => console.log("No email index found"));
 
 module.exports = Upload;

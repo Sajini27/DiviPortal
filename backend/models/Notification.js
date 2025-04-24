@@ -3,20 +3,20 @@ const mongoose = require('mongoose');
 const notificationSchema = new mongoose.Schema({
   staffId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // References staff
-    required: false, // Optional for user notifications
+    ref: 'User', 
+    required: false, 
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // References user
-    required: false, // Optional for staff notifications
+    ref: 'User', 
+    required: false, 
   },
   message: {
     type: String,
     required: true,
   },
   relatedId: {
-    type: mongoose.Schema.Types.ObjectId, // Reference to the related upload
+    type: mongoose.Schema.Types.ObjectId, 
     ref: 'Upload',
     required: true,
   },
@@ -26,7 +26,7 @@ const notificationSchema = new mongoose.Schema({
   },
   division: {
     type: String,
-    required: false, // Optional for user notifications
+    required: false, 
   },
   path: {
     type: String,
