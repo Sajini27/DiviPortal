@@ -10,7 +10,8 @@ const MyProfile = () => {
     phone: "",
     address: "",
     division: "",
-    department: ""
+    department: "",
+    nic: "" // <-- Add NIC to state
   });
 
   const [originalUserData, setOriginalUserData] = useState({});
@@ -151,6 +152,15 @@ const MyProfile = () => {
               />
             </div>
           )}
+          <div className="input-group">
+            <label>NIC</label>
+            <input
+              type="text"
+              name="nic"
+              value={userData.nic}
+              disabled // <-- NIC should not be editable
+            />
+          </div>
           <button onClick={handleUpdate} className="save-button">Save</button>
           <button onClick={handleCancel} className="cancel-button">Cancel</button>
         </div>
@@ -167,6 +177,7 @@ const MyProfile = () => {
             {role === "staff" && (
               <p><strong>Department:</strong> {userData.department || "Empty"}</p>
             )}
+            <p><strong>NIC:</strong> {userData.nic || "Empty"}</p> {/* Display NIC */}
           </div>
           <button onClick={() => setEdit(true)} className="edit-button">Edit Profile</button>
         </>

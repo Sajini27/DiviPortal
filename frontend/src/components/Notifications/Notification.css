@@ -11,14 +11,19 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column; /* ✅ Ensure vertical stacking */
+  gap: 1rem; /* ✅ Space between items */
 }
 
 .notification-item {
   padding: 1rem;
-  margin: 0.5rem 0;
   border: 1px solid #e0e0e0;
   border-radius: 6px;
   transition: background-color 0.2s ease;
+  display: flex;
+  flex-direction: column; /* ✅ Stack content inside each item */
+  background-color: #f9f9f9;
 }
 
 .notification-item.unread {
@@ -27,7 +32,6 @@
 }
 
 .notification-item.read {
-  background-color: #f9f9f9;
   opacity: 0.8;
 }
 

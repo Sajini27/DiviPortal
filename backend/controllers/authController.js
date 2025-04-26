@@ -4,13 +4,19 @@ const { User } = require('../models');
 
 // User Signup
 const signup = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, nic } = req.body;
 
     try {
         // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });
+        }
+
+        // Validate NIC format
+        const nicRegex = /^(?:\d{9}[vV]|\d{12})$/;
+        if (!nicRegex.test(nic)) {
+            return res.status(400).json({ message: 'Invalid NIC format' });
         }
 
         // Hash password
@@ -21,6 +27,7 @@ const signup = async (req, res) => {
             name,
             email,
             password: hashedPassword,
+            nic,
             role: 'user',
             phone: 0,
             address: '',
@@ -38,37 +45,39 @@ const signup = async (req, res) => {
 // User Login
 const login = async (req, res) => {
     const { email, password } = req.body;
-  
+
     try {
-      // Find user by email
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(400).json({ message: 'Invalid credentials' });
-      }
-  
-      // Check password
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.status(400).json({ message: 'Invalid credentials' });
-      }
-  
-      // Generate JWT token
-      const token = jwt.sign(
-        { userId: user._id, role: user.role },
-        process.env.JWT_SECRET,
-        { expiresIn: '1d' }
-      );
-      // Send user role along with token
-      res.status(200).json({ token, role: user.role, name: user.name, id: user._id, message: 'Login successful' });
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        const token = jwt.sign(
+            { userId: user._id, role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: '1d' }
+        );
+
+        res.status(200).json({
+            token,
+            role: user.role,
+            name: user.name,
+            id: user._id,
+            nic: user.nic,
+            message: 'Login successful'
+        });
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Server error' });
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
     }
-  };
-  
+};
 
 const logout = async (req, res) => {
-    // Since JWT is stateless, no action is needed on the server-side for logout
     res.status(200).json({ message: 'Logout successful' });
 };
 

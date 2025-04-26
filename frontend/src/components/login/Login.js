@@ -10,6 +10,7 @@ const Login = () => {
     email: '',
     password: '',
     name: '',
+    nic: '',
   });
   const [state, setState] = useState('Login');
   const [message, setMessage] = useState('');
@@ -20,11 +21,25 @@ const Login = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const isValidNIC = (nic) => {
+    const nic12 = /^\d{12}$/;
+    const nicOld = /^\d{9}[vV]$/;
+    return nic12.test(nic) || nicOld.test(nic);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { email, password, name, nic } = formData;
 
-    const { email, password, name } = formData;
-    const userDetails = state === 'Sign Up' ? { email, password, name } : { email, password };
+    if (state === 'Sign Up' && !isValidNIC(nic)) {
+      setMessage('Invalid NIC number. Must be 12 digits or 9 digits followed by "V".');
+      return;
+    }
+
+    const userDetails =
+      state === 'Sign Up'
+        ? { email, password, name, nic }
+        : { email, password };
 
     try {
       const url =
@@ -62,28 +77,39 @@ const Login = () => {
   return (
     <div className="login-container">
       <form className="login-box" onSubmit={handleSubmit}>
-        <h2 className="login-title">
-          {state === 'Sign Up' ? 'Create Account' : 'Login'}
-        </h2>
+        <h2 className="login-title">{state === 'Sign Up' ? 'Create Account' : 'Login'}</h2>
         <p className="login-subtitle">
-          {state === 'Sign Up'
-            ? 'Sign up to start your journey'
-            : 'Log in to your account'}
+          {state === 'Sign Up' ? 'Sign up to start your journey' : 'Log in to your account'}
         </p>
 
         {state === 'Sign Up' && (
-          <div className="form-group">
-            <label>Name with Initial</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter your name"
-              className="form-input"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <>
+            <div className="form-group">
+              <label>Name with Initial</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                className="form-input"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>National Identity Card Number</label>
+              <input
+                type="text"
+                name="nic"
+                placeholder="Enter your NIC number"
+                className="form-input"
+                value={formData.nic}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </>
         )}
 
         <div className="form-group">
@@ -125,7 +151,11 @@ const Login = () => {
         </button>
 
         {message && (
-          <div className={`message ${message.includes('successfully') ? 'success-message' : 'error-message'}`}>
+          <div
+            className={`message ${
+              message.includes('successfully') ? 'success-message' : 'error-message'
+            }`}
+          >
             {message}
           </div>
         )}
