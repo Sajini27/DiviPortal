@@ -1,2 +1,2 @@
-# for_project_1
-for ag office web application
+# DiviPortal
+User friendly web application for divisional secretariat offices for Sri Lanka.
